@@ -19,7 +19,9 @@ const DrawerContent = ({navigation}) => {
       <View style={styles.wrapperContent}>
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate('EditProfile');
+          }}
           style={styles.wrapperDrawer}>
           <Icon
             name="user"
@@ -31,7 +33,9 @@ const DrawerContent = ({navigation}) => {
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate('Cart');
+          }}
           style={styles.wrapperDrawer}>
           <Icon
             name="cart"

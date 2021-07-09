@@ -15,41 +15,44 @@ import Header from '../components/Header';
 const Profile = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
-      <Header secondary />
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>My Profile</Text>
-        <View style={styles.wrapperInfo}>
-          <Text style={styles.subTitle}>Your Information</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
-            <Text>edit</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.wrapperProfileInfo}>
-          <Image style={styles.picture} source={ILForgotPassword} />
-          <View style={styles.information}>
-            <Text style={styles.name}>Zuliakha</Text>
-            <Gap height={10} />
-            <Text style={styles.contact}>Zuliakha@email.com</Text>
-            <Gap height={10} />
-            <Text style={styles.contact}>+62 82212234356</Text>
-            <Gap height={10} />
-            <Text style={styles.address}>
-              Iskandar Street Block A Number 102
-            </Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header secondary />
+        <View style={styles.container}>
+          <Text style={styles.title}>My Profile</Text>
+          <View style={styles.wrapperInfo}>
+            <Text style={styles.subTitle}>Your Information</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('EditProfile')}>
+              <Text>edit</Text>
+            </TouchableOpacity>
           </View>
+          <View style={styles.wrapperProfileInfo}>
+            <Image style={styles.picture} source={ILForgotPassword} />
+            <View style={styles.information}>
+              <Text style={styles.name}>Zuliakha</Text>
+              <Gap height={10} />
+              <Text style={styles.contact}>Zuliakha@email.com</Text>
+              <Gap height={10} />
+              <Text style={styles.contact}>+62 82212234356</Text>
+              <Gap height={10} />
+              <Text style={styles.address}>
+                Iskandar Street Block A Number 102
+              </Text>
+            </View>
+          </View>
+          <Gap height={26} />
+          <ButtonInfo
+            label="Order History"
+            onPress={() => navigation.navigate('History')}
+          />
+          <Gap height={26} />
+          <ButtonInfo label="Edit Password" />
+          <Gap height={26} />
+          <ButtonInfo label="FAQ" />
+          <Gap height={26} />
+          <ButtonInfo label="Help" />
+          <Gap height={26} />
         </View>
-        <Gap height={26} />
-        <ButtonInfo
-          label="Order History"
-          onPress={() => navigation.navigate('History')}
-        />
-        <Gap height={26} />
-        <ButtonInfo label="Edit Password" />
-        <Gap height={26} />
-        <ButtonInfo label="FAQ" />
-        <Gap height={26} />
-        <ButtonInfo label="Help" />
-        <Gap height={26} />
       </ScrollView>
     </View>
   );

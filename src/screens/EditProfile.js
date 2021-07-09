@@ -14,7 +14,7 @@ import Header from '../components/Header';
 import {RadioButton} from 'react-native-paper';
 
 const EditProfile = () => {
-  const [checked, setChecked] = React.useState('first');
+  const [checked, setChecked] = React.useState('male');
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Header secondary label="Edit Profile" />
@@ -27,18 +27,18 @@ const EditProfile = () => {
         <View style={styles.containerRadio}>
           <View style={styles.wrapperRadio}>
             <RadioButton
-              value="first"
-              status={checked === 'first' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked('first')}
+              value="male"
+              status={checked === 'male' ? 'checked' : 'unchecked'}
+              onPress={() => setChecked('male')}
             />
             <Text>Male</Text>
           </View>
           <Gap width={20} />
           <View style={styles.wrapperRadio}>
             <RadioButton
-              value="second"
-              status={checked === 'second' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked('second')}
+              value="female"
+              status={checked === 'female' ? 'checked' : 'unchecked'}
+              onPress={() => setChecked('female')}
             />
             <Text>Female</Text>
           </View>

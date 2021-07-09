@@ -18,6 +18,10 @@ import TabBar from '../components/TabBar';
 import EditProfile from '../screens/EditProfile';
 import History from '../screens/History';
 import ProductDetail from '../screens/ProductDetail';
+import Cart from '../screens/Cart';
+import Coupon from '../screens/Coupon';
+import Checkout from '../screens/Checkout';
+import Payment from '../screens/Payment';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -77,7 +81,7 @@ const MainApp = () => {
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName="MainApp">
+    <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen
         component={SplashScreen}
         name="SplashScreen"
@@ -159,6 +163,42 @@ const Router = () => {
         options={{
           headerShown: false,
           title: 'ProductDetail',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        component={Cart}
+        name="Cart"
+        options={{
+          headerShown: false,
+          title: 'Cart',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        component={Coupon}
+        name="Coupon"
+        options={{
+          headerShown: false,
+          title: 'Coupon',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        component={Checkout}
+        name="Checkout"
+        options={{
+          headerShown: false,
+          title: 'Checkout',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        component={Payment}
+        name="Payment"
+        options={{
+          headerShown: false,
+          title: 'Payment',
           ...TransitionPresets.SlideFromRightIOS,
         }}
       />

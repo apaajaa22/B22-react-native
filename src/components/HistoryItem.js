@@ -4,11 +4,13 @@ import Swipeable from 'react-native-swipeable';
 import Icon from 'react-native-vector-icons/Feather';
 import {LogBox} from 'react-native';
 import {ILForgotPassword} from '../assets';
+import {useNavigation} from '@react-navigation/native';
 
 const HistoryItem = ({onOpen, onClose, onPress}) => {
+  const navigation = useNavigation();
   useEffect(() => {
-    LogBox.ignoreAllLogs();
-  }, []);
+    LogBox.ignoreAllLogs('Animated');
+  }, [navigation]);
 
   return (
     <Swipeable

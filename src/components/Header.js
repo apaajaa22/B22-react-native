@@ -20,7 +20,12 @@ const Header = ({secondary, label, third}) => {
             </TouchableOpacity>
           )}
           <TouchableOpacity>
-            <Icon name="cart-outline" size={32} color="#6A4029" />
+            <Icon
+              name="cart-outline"
+              size={32}
+              color="#6A4029"
+              onPress={() => navigation.navigate('Cart')}
+            />
           </TouchableOpacity>
         </View>
       ) : (
@@ -50,10 +55,10 @@ const styles = StyleSheet.create({
   secondaryText: {
     flex: 1,
     textAlign: 'center',
-    marginLeft: -25,
-    fontSize: 17,
-    fontWeight: '700',
-    color: '#6A4029',
+    marginRight: 25,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
   },
   pictureWrapper: {
     width: 40,

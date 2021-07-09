@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Header from '../components/Header';
 
-const ProductDetail = () => {
+const ProductDetail = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Header third />
@@ -34,6 +34,7 @@ const ProductDetail = () => {
         label="Add to cart"
         colorButton="#6A4029"
         textColorButton="#fff"
+        onPress={() => navigation.navigate('Cart')}
       />
       <Gap height={40} />
     </View>
