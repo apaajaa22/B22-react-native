@@ -1,12 +1,17 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {ILForgotPassword} from '../assets';
-import Button from './Button';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import IconIon from 'react-native-vector-icons/Ionicons';
+import IconMaterial from 'react-native-vector-icons/MaterialIcons';
+import {ILForgotPassword} from '../assets';
 
 const DrawerContent = ({navigation}) => {
+  const signOut = () => {
+    AsyncStorage.multiRemove(['userProfile', 'token']).then(() => {
+      navigation.reset({index: 0, routes: [{name: 'Login'}]});
+    });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.wrapperProfile}>
@@ -83,8 +88,8 @@ const DrawerContent = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity
+        onPress={signOut}
         activeOpacity={0.7}
-        onPress={() => {}}
         style={styles.wrapperDrawerSignout}>
         <Text style={styles.drawerTextSignout}>Sign-Out</Text>
         <IconMaterial

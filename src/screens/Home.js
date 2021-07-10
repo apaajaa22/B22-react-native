@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Header from '../components/Header';
 import Icon from 'react-native-vector-icons/Feather';
+import {useDispatch} from 'react-redux';
+import Header from '../components/Header';
 import HomeTabSection from '../components/HomeTabSection';
-import Gap from '../components/Gap';
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <Header />

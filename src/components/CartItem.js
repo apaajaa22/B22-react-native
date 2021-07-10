@@ -1,19 +1,18 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {ILForgotPassword} from '../assets';
 import Counter from './Counter';
 import Gap from './Gap';
 
-const CartItem = () => {
+const CartItem = ({price, name, img}) => {
   return (
     <View style={styles.wrapperItem}>
       <View style={styles.wrapperImage}>
-        <Image source={ILForgotPassword} style={styles.picture} />
-        <Text style={styles.price}>IDR 25.000</Text>
+        <Image source={img} style={styles.picture} />
+        <Text style={styles.price}>IDR {price}</Text>
       </View>
       <Gap width={25} />
       <View style={styles.wrapperCounter}>
-        <Text style={styles.name}>Beef Spagetti</Text>
+        <Text style={styles.name}>{name}</Text>
         <Counter />
       </View>
     </View>

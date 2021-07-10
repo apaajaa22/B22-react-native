@@ -30,33 +30,9 @@ const Tab = createBottomTabNavigator();
 const TabApp = () => {
   return (
     <Tab.Navigator tabBar={props => <TabBar {...props} />}>
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerShown: false,
-          title: 'Home',
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          headerShown: false,
-          title: 'Profile',
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
-      <Tab.Screen
-        name="Chat"
-        component={Chat}
-        options={{
-          headerShown: false,
-          title: 'Chat',
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Chat" component={Chat} />
     </Tab.Navigator>
   );
 };
@@ -92,6 +68,8 @@ const Router = () => {
         name="GettingStarted"
         options={{
           headerShown: false,
+          title: 'WelcomeScreen',
+          ...TransitionPresets.SlideFromRightIOS,
         }}
       />
       <Stack.Screen

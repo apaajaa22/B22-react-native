@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#6A4029',
     borderBottomWidth: 1,
     fontSize: 15,
+    paddingBottom: 5,
   },
   address: {color: '#6A4029', fontSize: 15},
 });

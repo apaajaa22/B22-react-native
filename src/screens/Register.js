@@ -1,10 +1,29 @@
 import React from 'react';
+import {useState} from 'react';
 import {ImageBackground, StyleSheet, Text, TextInput, View} from 'react-native';
 import {BGRegister} from '../assets';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
+import {useDispatch} from 'react-redux';
+import {signUpAction} from '../redux/action/auth';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const Register = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const dispatch = useDispatch();
+
+  const formData = {
+    email: email,
+    password: password,
+    phone: phone,
+  };
+  const onSubmit = () => {
+    dispatch(signUpAction(formData));
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.picture} source={BGRegister}>
@@ -14,21 +33,29 @@ const Register = () => {
             placeholder="Enter your email address"
             placeholderTextColor="#fff"
             style={styles.textInput}
+            value={email}
+            onChangeText={value => setEmail(value)}
           />
           <Gap height={17} />
           <TextInput
-            placeholder="Enter your email password"
+            secureTextEntry
+            placeholder="Enter your password"
             placeholderTextColor="#fff"
             style={styles.textInput}
+            value={password}
+            onChangeText={value => setPassword(value)}
           />
           <Gap height={17} />
           <TextInput
             placeholder="Enter your phone number"
             placeholderTextColor="#fff"
             style={styles.textInput}
+            value={phone}
+            onChangeText={value => setPhone(value)}
           />
           <Gap height={40} />
           <Button
+            onPress={onSubmit}
             label="Create Account"
             textColorButton="#fff"
             colorButton="#6A4029"

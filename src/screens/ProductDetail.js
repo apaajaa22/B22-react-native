@@ -5,36 +5,31 @@ import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Header from '../components/Header';
 
-const ProductDetail = ({navigation}) => {
+const ProductDetail = ({navigation, route}) => {
+  const {name, price, picture, delivery_on, description} = route.params;
   return (
     <View style={styles.container}>
       <Header third />
       <View style={styles.wrapperPicture}>
-        <Image source={ILForgotPassword} style={styles.picture} />
+        <Image source={{uri: picture}} style={styles.picture} />
       </View>
       <View style={styles.wrapperName}>
-        <Text style={styles.name}>Cold Brew</Text>
-        <Text style={styles.price}>IDR 30.000</Text>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.price}>IDR {price}</Text>
       </View>
       <View style={styles.wrapperDelivery}>
         <Text style={styles.title}>Delivery info</Text>
-        <Text style={styles.subTitle}>
-          Delivered only on monday until friday from 1 pm to 7 pm
-        </Text>
+        <Text style={styles.subTitle}>{delivery_on}</Text>
       </View>
       <View style={styles.wrapperInfo}>
         <Text style={styles.title}>Description</Text>
-        <Text style={styles.subTitle}>
-          Cold brewing is a method of brewing that combines ground coffee and
-          cool water and uses time instead of heat to extract the flavor. It is
-          brewed in small batches and steeped for as long as 48 hours.
-        </Text>
+        <Text style={styles.subTitle}>{description}</Text>
       </View>
       <Button
         label="Add to cart"
         colorButton="#6A4029"
         textColorButton="#fff"
-        onPress={() => navigation.navigate('Cart')}
+        onPress={() => navigation.navigate('Cart', {name, price, picture})}
       />
       <Gap height={40} />
     </View>

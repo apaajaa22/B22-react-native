@@ -5,13 +5,16 @@ import CartItem from '../components/CartItem';
 import Gap from '../components/Gap';
 import Header from '../components/Header';
 
-const Cart = ({navigation}) => {
+const Cart = ({navigation, route}) => {
+  const {name, price, picture} = route.params;
   return (
     <View style={styles.mainContainer}>
       <Header secondary label="My Cart" />
       <ScrollView style={styles.content}>
-        <CartItem />
-        <CartItem />
+        <Gap height={40} />
+        <CartItem name={name} price={price} img={{uri: picture}} />
+        <CartItem name={name} price={price} img={{uri: picture}} />
+        <CartItem name={name} price={price} img={{uri: picture}} />
         <ButtonInfo
           label="Apply Delivery Coupons"
           buttonColor="#FFBA33"

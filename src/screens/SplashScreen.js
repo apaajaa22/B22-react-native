@@ -1,13 +1,22 @@
 import React, {useEffect} from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {BGSplashScreen} from '../assets';
+import {getData} from '../utils/storage';
 
 const SplashScreen = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('GettingStarted');
-    }, 1500);
+      getData('token').then(res => {
+        console.log('token', res);
+        if (res) {
+          navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+        } else {
+          navigation.replace('GettingStarted');
+        }
+      });
+    }, 2000);
   }, [navigation]);
+
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.picture} source={BGSplashScreen}>

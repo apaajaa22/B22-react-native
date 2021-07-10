@@ -1,12 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import {BGLogin} from '../assets';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Link from '../components/Link';
+import {useDispatch} from 'react-redux';
+import {signInAction} from '../redux/action/auth';
 
 const Login = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const formData = {
+    email: email,
+    password: password,
+  };
+  const onSubmit = () => {
+    dispatch(signInAction(formData, navigation));
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.picture} source={BGLogin}>
@@ -16,12 +31,17 @@ const Login = ({navigation}) => {
             placeholder="Enter your email address"
             placeholderTextColor="#fff"
             style={styles.textInput}
+            value={email}
+            onChangeText={value => setEmail(value)}
           />
           <Gap height={17} />
           <TextInput
+            secureTextEntry
             placeholder="Enter your email password"
             placeholderTextColor="#fff"
             style={styles.textInput}
+            value={password}
+            onChangeText={value => setPassword(value)}
           />
           <Gap height={17} />
           <View style={styles.wrapperLink}>
@@ -31,10 +51,7 @@ const Login = ({navigation}) => {
             />
           </View>
           <Gap height={20} />
-          <Button
-            label="Login"
-            onPress={() => navigation.navigate('MainApp')}
-          />
+          <Button label="Login" onPress={onSubmit} />
           <Gap height={17} />
           <Text style={styles.orLogin}>Or Login in with</Text>
           <Gap height={17} />

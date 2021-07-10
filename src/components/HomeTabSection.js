@@ -1,18 +1,20 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
+import {useEffect} from 'react';
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
+import {useDispatch, useSelector} from 'react-redux';
 import {ILForgotPassword} from '../assets';
-import ItemHome from './ItemHome';
+import {getFoodById} from '../redux/action/home';
 import Gap from './Gap';
-import {useNavigation} from '@react-navigation/native';
+import ItemHome from './ItemHome';
 
 const renderTabBar = props => (
   <TabBar
@@ -23,7 +25,7 @@ const renderTabBar = props => (
       width: 0.5,
     }}
     style={{backgroundColor: 'white', shadowColor: '#fff'}}
-    tabStyle={{width: 'auto', paddingLeft: 31}}
+    tabStyle={{width: 'auto', paddingLeft: 31, backgroundColor: '#fff'}}
     renderLabel={({route, focused, color}) => (
       <Text
         style={{
@@ -38,7 +40,12 @@ const renderTabBar = props => (
 );
 
 const Favorite = () => {
+  const {favorite} = useSelector(state => state.homeReducer);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+  useEffect(() => {
+    dispatch(getFoodById(1));
+  }, [dispatch, navigation]);
   return (
     <View style={{flex: 1}}>
       <View
@@ -59,14 +66,17 @@ const Favorite = () => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <ItemHome
-          img={ILForgotPassword}
-          name="Hazelnut Latte"
-          price="25.000"
-          onPress={() => navigation.navigate('ProductDetail')}
-        />
-        <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
-        <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
+        {favorite.map(food => {
+          return (
+            <ItemHome
+              key={food.id}
+              img={{uri: food.picture}}
+              name={food.name}
+              price={food.price.toLocaleString('en')}
+              onPress={() => navigation.navigate('ProductDetail', food)}
+            />
+          );
+        })}
         <Gap width={38} />
       </ScrollView>
     </View>
@@ -96,69 +106,99 @@ const Promo = () => (
       <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
       <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
       <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
-
       <Gap width={38} />
     </ScrollView>
   </View>
 );
 
-const Coffee = () => (
-  <View style={{flex: 1}}>
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        marginRight: 25,
-        marginTop: 20,
-      }}>
-      <TouchableOpacity>
-        <Text
-          style={{
-            fontSize: 17,
-            color: '#6A4029',
-          }}>
-          See More
-        </Text>
-      </TouchableOpacity>
+const Coffee = () => {
+  const {coffee} = useSelector(state => state.homeReducer);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  useEffect(() => {
+    dispatch(getFoodById(2));
+  }, [dispatch]);
+  return (
+    <View style={{flex: 1}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          marginRight: 25,
+          marginTop: 20,
+        }}>
+        <TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 17,
+              color: '#6A4029',
+            }}>
+            See More
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {coffee.map(kopi => {
+          return (
+            <ItemHome
+              key={kopi.id}
+              img={{uri: kopi.picture}}
+              name={kopi.name}
+              price={kopi.price.toLocaleString('en')}
+              onPress={() => navigation.navigate('ProductDetail', kopi)}
+            />
+          );
+        })}
+        <Gap width={38} />
+      </ScrollView>
     </View>
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
-      <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
-      <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
+  );
+};
 
-      <Gap width={38} />
-    </ScrollView>
-  </View>
-);
+const NonCoffee = () => {
+  const {nonCoffee} = useSelector(state => state.homeReducer);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  useEffect(() => {
+    dispatch(getFoodById(3));
+  }, [dispatch]);
 
-const NonCoffee = () => (
-  <View style={{flex: 1}}>
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        marginRight: 25,
-        marginTop: 20,
-      }}>
-      <TouchableOpacity>
-        <Text
-          style={{
-            fontSize: 17,
-            color: '#6A4029',
-          }}>
-          See More
-        </Text>
-      </TouchableOpacity>
+  return (
+    <View style={{flex: 1}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          marginRight: 25,
+          marginTop: 20,
+        }}>
+        <TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 17,
+              color: '#6A4029',
+            }}>
+            See More
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {nonCoffee.map(data => {
+          return (
+            <ItemHome
+              key={data.id}
+              img={{uri: data.picture}}
+              name={data.name}
+              price={data.price.toLocaleString('en')}
+              onPress={() => navigation.navigate('ProductDetail', data)}
+            />
+          );
+        })}
+        <Gap width={38} />
+      </ScrollView>
     </View>
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
-      <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
-      <ItemHome img={ILForgotPassword} name="Hazelnut Latte" price="25.000" />
-
-      <Gap width={38} />
-    </ScrollView>
-  </View>
-);
+  );
+};
 
 const renderScene = SceneMap({
   1: Favorite,

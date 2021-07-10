@@ -18,7 +18,13 @@ const ItemHome = ({img, name, price, onPress}) => {
         }}>
         <Image
           source={img}
-          style={{width: 168, height: 189, resizeMode: 'cover', marginTop: -30}}
+          style={{
+            width: 168,
+            borderRadius: 20,
+            height: 189,
+            resizeMode: 'cover',
+            marginTop: -30,
+          }}
         />
         <View style={{alignItems: 'center'}}>
           <Text

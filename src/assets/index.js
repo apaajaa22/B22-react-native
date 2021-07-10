@@ -7,6 +7,7 @@ import ILForgotPassword from './IL_ForgotPassword.png';
 import IcHand from './IC_Hand.png';
 import ILCoupon from './IL_Coupon.png';
 import ILCard from './IL_Card.png';
+import ILUserDefault from './defaultuser.png';
 export {
   BGSplashScreen,
   BGWelcomeScreen,
@@ -17,4 +18,5 @@ export {
   IcHand,
   ILCoupon,
   ILCard,
+  ILUserDefault,
 };
