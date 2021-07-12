@@ -55,7 +55,7 @@ const Favorite = () => {
           marginRight: 25,
           marginTop: 20,
         }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('LoadMore')}>
           <Text
             style={{
               fontSize: 17,

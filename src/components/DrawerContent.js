@@ -1,25 +1,37 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
+import {useEffect} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import IconIon from 'react-native-vector-icons/Ionicons';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
-import {ILForgotPassword} from '../assets';
+import {useDispatch, useSelector} from 'react-redux';
+import {ILUserDefault} from '../assets';
 
 const DrawerContent = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {profile} = useSelector(state => state.photoReducer);
+
   const signOut = () => {
-    AsyncStorage.multiRemove(['userProfile', 'token']).then(() => {
-      navigation.reset({index: 0, routes: [{name: 'Login'}]});
+    AsyncStorage.multiRemove(['profile', 'token']).then(() => {
+      navigation.reset({index: 0, routes: [{name: 'WelcomeScreen'}]});
     });
+    dispatch({type: 'SET_CLEAR_HISTORY'});
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.wrapperProfile}>
-        <Image style={styles.pictureDrawer} source={ILForgotPassword} />
-        <Text style={styles.title}>Zulaikha</Text>
-        <Text style={[styles.title, styles.subTitle]}>
-          zulaikha17@gmail.com
-        </Text>
+        <Image
+          style={styles.pictureDrawer}
+          source={
+            profile[0]?.picture === null
+              ? ILUserDefault
+              : {uri: profile[0]?.picture}
+          }
+        />
+        <Text style={styles.title}>{profile[0]?.name}</Text>
+        <Text style={[styles.title, styles.subTitle]}>{profile[0]?.email}</Text>
       </View>
       <View style={styles.wrapperContent}>
         <TouchableOpacity

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {http} from '../../helpers/http';
 import toastMessage from '../../utils/showMessage';
 import {storeData} from '../../utils/storage';
+import {API_URL} from '@env';
 
 export const signInAction = (data, navigation) => dispatch => {
   const form = new URLSearchParams();
@@ -9,11 +9,20 @@ export const signInAction = (data, navigation) => dispatch => {
   form.append('password', data.password);
   dispatch({type: 'SET_LOADING', payload: true});
   axios
-    .post('http://192.168.1.9:8080/auth/login', form)
+    .post(`${API_URL}/auth/login`, form)
     .then(res => {
       dispatch({type: 'SET_LOADING', payload: false});
       const token = res.data.results.token;
       storeData('token', token);
+      axios
+        .get(`${API_URL}/private/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(newData => {
+          storeData('profile', newData.data.results);
+        });
       navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
     })
     .catch(err => {
@@ -30,7 +39,7 @@ export const signUpAction = data => dispatch => {
   form.append('phone_number', data.phone);
   dispatch({type: 'SET_LOADING', payload: true});
   axios
-    .post('http://192.168.1.9:8080/auth/register', form)
+    .post(`${API_URL}/auth/register`, form)
     .then(res => {
       dispatch({type: 'SET_LOADING', payload: false});
       toastMessage(res?.data?.message, 'success');

@@ -22,6 +22,7 @@ import Cart from '../screens/Cart';
 import Coupon from '../screens/Coupon';
 import Checkout from '../screens/Checkout';
 import Payment from '../screens/Payment';
+import LoadMore from '../screens/LoadMore';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -177,6 +178,15 @@ const Router = () => {
         options={{
           headerShown: false,
           title: 'Payment',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        component={LoadMore}
+        name="LoadMore"
+        options={{
+          headerShown: false,
+          title: 'LoadMore',
           ...TransitionPresets.SlideFromRightIOS,
         }}
       />

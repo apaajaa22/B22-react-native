@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -8,20 +8,39 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ILForgotPassword, ILUserDefault} from '../assets';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {RadioButton} from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
+import {ILUserDefault} from '../assets';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Header from '../components/Header';
-import {RadioButton} from 'react-native-paper';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {editProfile} from '../redux/action/profile';
 import toastMessage from '../utils/showMessage';
-import {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {getData} from '../utils/storage';
 
-const EditProfile = () => {
+const EditProfile = ({navigation}) => {
   const dispatch = useDispatch();
+  const {photoReducer} = useSelector(state => state);
+  const {profile} = useSelector(state => state.photoReducer);
+
+  const [name, setName] = useState(profile[0]?.name);
+  const [email, setEmail] = useState(profile[0]?.email);
+  const [phone, setPhone] = useState(profile[0]?.phone_number);
+  const [birth, setBirth] = useState(profile[0]?.birth);
+  const [address, setAddress] = useState(profile[0]?.address);
+
   const [checked, setChecked] = React.useState('male');
-  const [photo, setPhoto] = useState(ILUserDefault);
+  const [photo, setPhoto] = useState(
+    profile[0].picture === null ? ILUserDefault : {uri: profile[0]?.picture},
+  );
+  const [token, setToken] = useState('');
+  useEffect(() => {
+    getData('token').then(res => {
+      setToken(res);
+    });
+    console.log(profile[0]);
+  }, [profile]);
 
   const addPhoto = () => {
     launchImageLibrary(
@@ -42,24 +61,34 @@ const EditProfile = () => {
       },
     );
   };
-  const onSubmit = () => {
-    console.log('data', checked);
+
+  const formData = {
+    name: name,
+    email: email,
+    phone: phone,
+    birth: birth,
+    address: address,
+    gender: checked,
   };
+  const onSubmit = () => {
+    dispatch(editProfile(token, formData, photoReducer, navigation));
+  };
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Header secondary label="Edit Profile" />
       <View style={styles.wrapperPicture}>
         <TouchableOpacity onPress={addPhoto}>
-          {photo ? (
-            <Image source={photo} style={styles.picture} />
-          ) : (
-            <Image source={ILForgotPassword} style={styles.picture} />
-          )}
+          <Image source={photo} style={styles.picture} />
         </TouchableOpacity>
       </View>
       <View style={styles.wrapperContent}>
         <Text style={styles.label}>Name :</Text>
-        <TextInput style={styles.input} />
+        <TextInput
+          value={name}
+          onChangeText={e => setName(e)}
+          style={styles.input}
+        />
         <View style={styles.containerRadio}>
           <View style={styles.wrapperRadio}>
             <RadioButton
@@ -81,16 +110,32 @@ const EditProfile = () => {
         </View>
         <Gap height={21} />
         <Text style={styles.label}>Email Address :</Text>
-        <TextInput style={styles.input} />
+        <TextInput
+          value={email}
+          onChangeText={e => setEmail(e)}
+          style={styles.input}
+        />
         <Gap height={21} />
         <Text style={styles.label}>Phone Number :</Text>
-        <TextInput style={styles.input} />
+        <TextInput
+          value={phone}
+          onChangeText={e => setPhone(e)}
+          style={styles.input}
+        />
         <Gap height={21} />
         <Text style={styles.label}>Date of Birth</Text>
-        <TextInput style={styles.input} />
+        <TextInput
+          value={birth}
+          onChangeText={e => setBirth(e)}
+          style={styles.input}
+        />
         <Gap height={21} />
         <Text style={styles.label}>Delivery Address :</Text>
-        <TextInput style={styles.input} />
+        <TextInput
+          value={address}
+          onChangeText={e => setAddress(e)}
+          style={styles.input}
+        />
       </View>
       <Button
         label="Save and Update"

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -7,12 +8,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ILForgotPassword} from '../assets';
+import {useSelector} from 'react-redux';
+import {ILUserDefault} from '../assets';
 import ButtonInfo from '../components/ButtonInfo';
 import Gap from '../components/Gap';
 import Header from '../components/Header';
 
 const Profile = ({navigation}) => {
+  const {profile} = useSelector(state => state.photoReducer);
+
   return (
     <View style={styles.mainContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -27,17 +31,22 @@ const Profile = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.wrapperProfileInfo}>
-            <Image style={styles.picture} source={ILForgotPassword} />
+            <Image
+              style={styles.picture}
+              source={
+                profile[0].picture === null
+                  ? ILUserDefault
+                  : {uri: profile[0]?.picture}
+              }
+            />
             <View style={styles.information}>
-              <Text style={styles.name}>Zuliakha</Text>
+              <Text style={styles.name}>{profile[0].name}</Text>
               <Gap height={10} />
-              <Text style={styles.contact}>Zuliakha@email.com</Text>
+              <Text style={styles.contact}>{profile[0].email}</Text>
               <Gap height={10} />
-              <Text style={styles.contact}>+62 82212234356</Text>
+              <Text style={styles.contact}>{profile[0].phone_number}</Text>
               <Gap height={10} />
-              <Text style={styles.address}>
-                Iskandar Street Block A Number 102
-              </Text>
+              <Text style={styles.address}>{profile[0].address}</Text>
             </View>
           </View>
           <Gap height={26} />
@@ -82,6 +91,7 @@ const styles = StyleSheet.create({
     height: 197,
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
   },
   picture: {
     width: 80,

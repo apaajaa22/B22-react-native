@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,11 +8,22 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Header from '../components/Header';
 import HomeTabSection from '../components/HomeTabSection';
+import {getProfile} from '../redux/action/profile';
+import {getData} from '../utils/storage';
 
 const Home = ({navigation}) => {
+  const [token, setToken] = useState('');
+  const {profile} = useSelector(state => state.photoReducer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getData('token').then(res => {
+      setToken(res);
+    });
+    dispatch(getProfile(token));
+  }, [dispatch, navigation, token]);
   return (
     <View style={styles.mainContainer}>
       <Header />

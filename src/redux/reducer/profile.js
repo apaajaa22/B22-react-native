@@ -3,6 +3,7 @@ const initPhoto = {
   type: '',
   name: '',
   isUpload: false,
+  profile: {},
 };
 
 export const photoReducer = (state = initPhoto, action) => {
@@ -18,6 +19,11 @@ export const photoReducer = (state = initPhoto, action) => {
       return {
         ...state,
         isUpload: action.payload,
+      };
+    case 'SET_PROFILE':
+      return {
+        ...state,
+        profile: action.payload,
       };
     default:
       return {

@@ -3,6 +3,7 @@ const initHome = {
   coffee: [],
   nonCoffee: [],
   foods: [],
+  detailProduct: [],
 };
 
 export const homeReducer = (state = initHome, action) => {
@@ -26,6 +27,11 @@ export const homeReducer = (state = initHome, action) => {
       return {
         ...state,
         foods: action.value,
+      };
+    case 'SET_DETAILS':
+      return {
+        ...state,
+        detailProduct: action.value,
       };
     default:
       return {

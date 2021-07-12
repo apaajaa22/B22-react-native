@@ -6,10 +6,10 @@ import {LogBox} from 'react-native';
 import {ILForgotPassword} from '../assets';
 import {useNavigation} from '@react-navigation/native';
 
-const HistoryItem = ({onOpen, onClose, onPress}) => {
+const HistoryItem = ({onOpen, onClose, onPress, name, price}) => {
   const navigation = useNavigation();
   useEffect(() => {
-    LogBox.ignoreAllLogs('Animated');
+    LogBox.ignoreAllLogs();
   }, [navigation]);
 
   return (
@@ -27,8 +27,8 @@ const HistoryItem = ({onOpen, onClose, onPress}) => {
       <View style={[styles.listItem, styles.listItemAdd]}>
         <Image source={ILForgotPassword} style={styles.picture} />
         <View>
-          <Text style={styles.title}>Veggie tomato mix</Text>
-          <Text style={styles.price}>IDR 34.000</Text>
+          <Text style={styles.title}>{name}</Text>
+          <Text style={styles.price}>IDR {price}</Text>
           <Text style={styles.delivery}>
             Waiting for delivery [will arrive at 3 PM]
           </Text>

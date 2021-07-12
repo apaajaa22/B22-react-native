@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {ILForgotPassword} from '../assets';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Header from '../components/Header';
+import {getFoodDetail} from '../redux/action/home';
 
 const ProductDetail = ({navigation, route}) => {
-  const {name, price, picture, delivery_on, description} = route.params;
+  const {id, name, price, picture, delivery_on, description} = route.params;
+
+  const {detailProduct} = useSelector(state => state.homeReducer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getFoodDetail(id));
+  }, [dispatch, id, navigation]);
+
   return (
     <View style={styles.container}>
       <Header third />
@@ -15,7 +24,7 @@ const ProductDetail = ({navigation, route}) => {
       </View>
       <View style={styles.wrapperName}>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.price}>IDR {price}</Text>
+        <Text style={styles.price}>IDR {price.toLocaleString('en')}</Text>
       </View>
       <View style={styles.wrapperDelivery}>
         <Text style={styles.title}>Delivery info</Text>
@@ -29,7 +38,7 @@ const ProductDetail = ({navigation, route}) => {
         label="Add to cart"
         colorButton="#6A4029"
         textColorButton="#fff"
-        onPress={() => navigation.navigate('Cart', {name, price, picture})}
+        onPress={() => navigation.navigate('Cart', detailProduct)}
       />
       <Gap height={40} />
     </View>

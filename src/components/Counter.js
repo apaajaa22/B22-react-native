@@ -5,8 +5,8 @@ const Counter = ({onValueChange}) => {
   const [value, setValue] = useState(1);
 
   useEffect(() => {
-    // onValueChange(value);
-  }, []);
+    onValueChange(value);
+  }, [onValueChange, value]);
 
   const onCount = type => {
     let result = value;
@@ -19,7 +19,7 @@ const Counter = ({onValueChange}) => {
       }
     }
     setValue(result);
-    // onValueChange(result);
+    onValueChange(result);
   };
   return (
     <View style={styles.content}>
