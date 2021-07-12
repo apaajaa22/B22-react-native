@@ -17,6 +17,6 @@ export const getHistory = token => dispatch => {
     });
 };
 
-export const getHistorySec = token => dispatch => {
-  const {data} = http(token).get(`${API_URL}/private/transactions`);
-};
+// export const getHistorySec =  token => async dispatch => {
+//   const {data} = await http(token).get(`${API_URL}/private/transactions`);
+// };
