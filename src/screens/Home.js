@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
+import Gap from '../components/Gap';
 import Header from '../components/Header';
 import HomeTabSection from '../components/HomeTabSection';
 import {getCategory} from '../redux/action/category';
@@ -33,12 +34,13 @@ const Home = ({navigation}) => {
       <Header />
       <View style={styles.container}>
         <Text style={styles.title}>A good coffee is a good day</Text>
-        <View style={styles.searchWrapper}>
-          <TouchableOpacity>
-            <Icon name="search" size={25} color="#6A4029" />
-          </TouchableOpacity>
-          <TextInput placeholder="Search" />
-        </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Search')}
+          style={styles.searchWrapper}>
+          <Icon name="search" size={25} color="#6A4029" />
+          <Gap width={10} />
+          <Text>Search</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.wrapperTabView}>
         <HomeTabSection />

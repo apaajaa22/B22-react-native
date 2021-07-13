@@ -24,6 +24,7 @@ import Checkout from '../screens/Checkout';
 import Payment from '../screens/Payment';
 import LoadMore from '../screens/LoadMore';
 import Delivery from '../screens/Delivery';
+import Search from '../screens/Search';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -197,6 +198,15 @@ const Router = () => {
         options={{
           headerShown: false,
           title: 'Delivery',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        component={Search}
+        name="Search"
+        options={{
+          headerShown: false,
+          title: 'Search',
           ...TransitionPresets.SlideFromRightIOS,
         }}
       />
