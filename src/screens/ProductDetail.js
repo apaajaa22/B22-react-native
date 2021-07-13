@@ -7,7 +7,7 @@ import {ILForgotPassword} from '../assets';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Header from '../components/Header';
-import {addProducts} from '../redux/action/cart';
+import {addProducts, updateProducts} from '../redux/action/cart';
 import {getFoodDetail} from '../redux/action/home';
 
 const ProductDetail = ({navigation, route}) => {
@@ -19,8 +19,7 @@ const ProductDetail = ({navigation, route}) => {
 
   useEffect(() => {
     dispatch(getFoodDetail(id));
-    console.log(products);
-  }, [dispatch, navigation, selectVariant]);
+  }, [dispatch, id, navigation, products, selectVariant]);
 
   const pressVariant = idx => {
     const getPrice = detailProduct.variants[idx].price;

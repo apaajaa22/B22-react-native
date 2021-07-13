@@ -13,7 +13,15 @@ const Cart = ({navigation, route}) => {
   const {products} = useSelector(state => state.carts);
   const [finalData, setFinalData] = useState(null);
 
+  const price = products.map(e => e.price * e.amount);
+  const itemTotal = price.reduce((acc, curr) => acc + curr, 0);
+  const deliveryCharge = 10000;
+  const tax = (10 / 100) * itemTotal;
+  const totalPrice = itemTotal + tax + deliveryCharge;
+
   useEffect(() => {
+    console.log('new', products);
+
     if (products) {
       const data = products.map(res => {
         return {
@@ -24,17 +32,20 @@ const Cart = ({navigation, route}) => {
       setFinalData(data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [total]);
+  }, [total, products]);
 
   const onCouter = e => {
     console.log(e);
   };
 
-  const tax = 10 / 100;
-  const deliveryCharge = 10000;
-
   const onOrder = () => {
-    navigation.navigate('Delivery', {amount: products});
+    navigation.navigate('Delivery', {
+      amount: products,
+      itemTotal: itemTotal,
+      deliveryCharge: deliveryCharge,
+      tax: tax,
+      totalPrice: totalPrice,
+    });
   };
   return (
     <View style={styles.mainContainer}>
@@ -64,7 +75,7 @@ const Cart = ({navigation, route}) => {
             <View style={styles.wrapperMainPrice}>
               <View style={styles.wrapperPrice}>
                 <Text style={styles.titlePrice}>Item Total</Text>
-                <Text>IDR 10000</Text>
+                <Text>IDR {itemTotal.toLocaleString('en')}</Text>
               </View>
               <Gap height={20} />
               <View style={styles.wrapperPrice}>
@@ -79,7 +90,9 @@ const Cart = ({navigation, route}) => {
               <Gap height={30} />
               <View style={styles.wrapperPrice}>
                 <Text style={styles.total}>Total </Text>
-                <Text style={styles.total}>IDR 10000</Text>
+                <Text style={styles.total}>
+                  IDR {totalPrice.toLocaleString('en')}
+                </Text>
               </View>
             </View>
             <ButtonInfo

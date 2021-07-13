@@ -10,7 +10,7 @@ import Header from '../components/Header';
 const Delivery = ({navigation, route}) => {
   const {profile} = useSelector(state => state.photoReducer);
   const [checked, setChecked] = React.useState('Door delivery');
-  const {amount} = route.params;
+  const {amount, itemTotal, tax, totalPrice, deliveryCharge} = route.params;
   console.log(amount);
   return (
     <View>
@@ -67,7 +67,9 @@ const Delivery = ({navigation, route}) => {
           <Gap height={20} />
           <View style={styles.wrapperInfo}>
             <Text style={styles.subTitle}>Total</Text>
-            <Text style={styles.subTitle}>IDR 10000</Text>
+            <Text style={styles.subTitle}>
+              IDR {totalPrice.toLocaleString('en')}
+            </Text>
           </View>
         </View>
         <Gap height={20} />
@@ -76,7 +78,14 @@ const Delivery = ({navigation, route}) => {
           textColorButton="#FFF"
           colorButton="#6A4029"
           onPress={() =>
-            navigation.navigate('Payment', {checked: checked, amount: amount})
+            navigation.navigate('Payment', {
+              checked: checked,
+              amount: amount,
+              itemTotal: itemTotal,
+              tax: tax,
+              totalPrice: totalPrice,
+              deliveryCharge: deliveryCharge,
+            })
           }
         />
         <Gap height={20} />

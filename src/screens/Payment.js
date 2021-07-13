@@ -12,7 +12,8 @@ import {getData} from '../utils/storage';
 
 const Payment = ({route, navigation}) => {
   const {products} = useSelector(state => state.carts);
-  const {checked, amount} = route.params;
+  const {checked, amount, itemTotal, tax, totalPrice, deliveryCharge} =
+    route.params;
   const [token, setToken] = useState('');
 
   useEffect(() => {
@@ -57,16 +58,22 @@ const Payment = ({route, navigation}) => {
           </View>
           <View style={styles.price}>
             <Text>Subtotal</Text>
-            <Text>IDR 105.000</Text>
+            <Text>IDR {itemTotal.toLocaleString('en')}</Text>
           </View>
           <View style={styles.price}>
             <Text>Tax</Text>
-            <Text>IDR 12.000</Text>
+            <Text>IDR {tax.toLocaleString('en')}</Text>
+          </View>
+          <View style={styles.price}>
+            <Text>Delivery Charge</Text>
+            <Text>IDR {deliveryCharge.toLocaleString('en')}</Text>
           </View>
           <Gap height={20} />
           <View style={styles.price}>
             <Text style={styles.total}>Total</Text>
-            <Text style={styles.total}>IDR 117.000</Text>
+            <Text style={styles.total}>
+              IDR {totalPrice.toLocaleString('en')}
+            </Text>
           </View>
         </View>
         <Gap height={50} />

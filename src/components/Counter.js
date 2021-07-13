@@ -16,7 +16,7 @@ const Counter = ({onValueChange, productId}) => {
       const data = products.map(res => {
         return {
           ...res,
-          amount: total,
+          amount: 1,
         };
       });
       setFinalData(data);
