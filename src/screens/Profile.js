@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   wrapperInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   title: {
     fontSize: 34,

@@ -1,46 +1,78 @@
 import React, {useEffect} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {useState} from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {ILForgotPassword} from '../assets';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Header from '../components/Header';
+import {addProducts} from '../redux/action/cart';
 import {getFoodDetail} from '../redux/action/home';
 
 const ProductDetail = ({navigation, route}) => {
   const {id, name, price, picture, delivery_on, description} = route.params;
-
+  const [priceProduct, setPriceProduct] = useState(price);
   const {detailProduct} = useSelector(state => state.homeReducer);
+  const [selectVariant, setSelectVariant] = useState('');
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getFoodDetail(id));
-  }, [dispatch, id, navigation]);
+    console.log(products);
+  }, [dispatch, navigation, selectVariant]);
+
+  const pressVariant = idx => {
+    const getPrice = detailProduct.variants[idx].price;
+    const getVariant = detailProduct.variants[idx];
+    setPriceProduct(getPrice);
+    setSelectVariant(getVariant);
+    console.log(selectVariant);
+  };
+  const {products} = useSelector(state => state.carts);
 
   return (
     <View style={styles.container}>
-      <Header third />
-      <View style={styles.wrapperPicture}>
-        <Image source={{uri: picture}} style={styles.picture} />
-      </View>
-      <View style={styles.wrapperName}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.price}>IDR {price.toLocaleString('en')}</Text>
-      </View>
-      <View style={styles.wrapperDelivery}>
-        <Text style={styles.title}>Delivery info</Text>
-        <Text style={styles.subTitle}>{delivery_on}</Text>
-      </View>
-      <View style={styles.wrapperInfo}>
-        <Text style={styles.title}>Description</Text>
-        <Text style={styles.subTitle}>{description}</Text>
-      </View>
-      <Button
-        label="Add to cart"
-        colorButton="#6A4029"
-        textColorButton="#fff"
-        onPress={() => navigation.navigate('Cart', detailProduct)}
-      />
-      <Gap height={40} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header third />
+        <View style={styles.wrapperPicture}>
+          <Image source={{uri: picture}} style={styles.picture} />
+        </View>
+        <View style={styles.wrapperName}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.price}>IDR {priceProduct}</Text>
+        </View>
+        <View style={styles.containerVariant}>
+          {detailProduct.variants?.map((data, idx) => {
+            return (
+              <TouchableOpacity
+                onPress={() => pressVariant(idx)}
+                activeOpacity={0.7}
+                key={data.price}
+                style={styles.wrapperVariant}>
+                <Text style={styles.textVariant}>{data.code}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+        <View style={styles.wrapperDelivery}>
+          <Text style={styles.title}>Delivery info</Text>
+          <Text style={styles.subTitle}>{delivery_on}</Text>
+        </View>
+        <View style={styles.wrapperInfo}>
+          <Text style={styles.title}>Description</Text>
+          <Text style={styles.subTitle}>{description}</Text>
+        </View>
+        <Gap height={40} />
+        <Button
+          label="Add to cart"
+          colorButton="#6A4029"
+          textColorButton="#fff"
+          // onPress={() => navigation.navigate('Cart')}
+          onPress={() => dispatch(addProducts(selectVariant))}
+        />
+        <Gap height={40} />
+      </ScrollView>
     </View>
   );
 };
@@ -68,4 +100,22 @@ const styles = StyleSheet.create({
   price: {fontSize: 22, color: '#6A4029', fontWeight: 'bold'},
   title: {fontWeight: 'bold', fontSize: 17},
   subTitle: {fontSize: 15, color: '#000000'},
+  containerVariant: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  wrapperVariant: {
+    width: 70,
+    height: 70,
+    backgroundColor: '#FFBA33',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 70 / 2,
+    marginHorizontal: 20,
+  },
+  textVariant: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 });

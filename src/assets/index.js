@@ -9,6 +9,7 @@ import ILCoupon from './IL_Coupon.png';
 import ILCard from './IL_Card.png';
 import ILUserDefault from './defaultuser.png';
 import ILNoHistory from './IL_NoHistory.png';
+import ILNoOrder from './IL_NoOrder.png';
 export {
   BGSplashScreen,
   BGWelcomeScreen,
@@ -21,4 +22,5 @@ export {
   ILCard,
   ILUserDefault,
   ILNoHistory,
+  ILNoOrder,
 };

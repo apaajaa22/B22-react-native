@@ -23,6 +23,7 @@ import Coupon from '../screens/Coupon';
 import Checkout from '../screens/Checkout';
 import Payment from '../screens/Payment';
 import LoadMore from '../screens/LoadMore';
+import Delivery from '../screens/Delivery';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -187,6 +188,15 @@ const Router = () => {
         options={{
           headerShown: false,
           title: 'LoadMore',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        component={Delivery}
+        name="Delivery"
+        options={{
+          headerShown: false,
+          title: 'Delivery',
           ...TransitionPresets.SlideFromRightIOS,
         }}
       />

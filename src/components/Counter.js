@@ -1,8 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useSelector} from 'react-redux';
 
-const Counter = ({onValueChange}) => {
+const Counter = ({onValueChange, id}) => {
   const [value, setValue] = useState(1);
+  const [total, setTotal] = useState(1);
+  const {products} = useSelector(state => state.carts);
+  const [finalData, setFinalData] = useState(null);
+  console.log(products.id);
+  useEffect(() => {
+    if (products) {
+      const data = products.map(res => {
+        return {
+          ...res,
+          amount: total,
+        };
+      });
+      setFinalData(data);
+      console.log('final data', finalData);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [total]);
 
   useEffect(() => {
     onValueChange(value);
@@ -11,6 +29,8 @@ const Counter = ({onValueChange}) => {
   const onCount = type => {
     let result = value;
     if (type === 'plus') {
+      const idx = products.findIndex(obj => obj.id === products.id);
+      products[idx].amount = setValue(result);
       result = value + 1;
     }
     if (type === 'minus') {

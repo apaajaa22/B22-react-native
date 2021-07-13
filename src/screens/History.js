@@ -51,11 +51,12 @@ const History = () => {
           </View>
         ) : (
           history.map(data => {
+            const totalPrice = data.total + data.tax + data.shipping_cost;
             return (
               <HistoryItem
                 key={data.id}
                 name={data.code}
-                price={data.total.toLocaleString('en')}
+                price={totalPrice.toLocaleString('en')}
               />
             );
           })
