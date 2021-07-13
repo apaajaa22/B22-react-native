@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateProducts} from '../redux/action/cart';
 
-const Counter = ({onValueChange, id}) => {
+const Counter = ({onValueChange, productId}) => {
   const [value, setValue] = useState(1);
   const [total, setTotal] = useState(1);
   const {products} = useSelector(state => state.carts);
-  const [finalData, setFinalData] = useState(null);
-  console.log(products.id);
+  const [finalData, setFinalData] = useState();
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    console.log('id', productId);
     if (products) {
       const data = products.map(res => {
         return {
@@ -17,20 +20,18 @@ const Counter = ({onValueChange, id}) => {
         };
       });
       setFinalData(data);
-      console.log('final data', finalData);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [total]);
-
-  useEffect(() => {
     onValueChange(value);
-  }, [onValueChange, value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [total, value, onValueChange]);
+
+  // useEffect(() => {
+  //   onValueChange(value);
+  // }, [onValueChange, value]);
 
   const onCount = type => {
     let result = value;
     if (type === 'plus') {
-      const idx = products.findIndex(obj => obj.id === products.id);
-      products[idx].amount = setValue(result);
       result = value + 1;
     }
     if (type === 'minus') {
@@ -38,8 +39,11 @@ const Counter = ({onValueChange, id}) => {
         result = value - 1;
       }
     }
-    setValue(result);
+    const idx = products.findIndex(obj => obj.id === productId);
+    products[idx].amount = setValue(result);
     onValueChange(result);
+    dispatch(updateProducts(finalData));
+    // console.log(finalData);
   };
   return (
     <View style={styles.content}>

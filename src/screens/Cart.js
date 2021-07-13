@@ -12,8 +12,10 @@ const Cart = ({navigation, route}) => {
   const [total, setTotal] = useState(1);
   const {products} = useSelector(state => state.carts);
   const [finalData, setFinalData] = useState(null);
+  console.log('products', products);
 
   useEffect(() => {
+    console.log('products ini', products);
     if (products) {
       const data = products.map(res => {
         return {
@@ -52,6 +54,7 @@ const Cart = ({navigation, route}) => {
                   price={data.price.toLocaleString('en')}
                   img={{uri: data.picture}}
                   onValueChange={onCouter}
+                  productId={data.id}
                 />
               );
             })}

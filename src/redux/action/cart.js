@@ -1,9 +1,17 @@
 import {http} from '../../helpers/http';
 import {API_URL} from '@env';
 import toastMessage from '../../utils/showMessage';
+
 export const addProducts = data => {
   return {
     type: 'SET_CART_ADD_ITEM',
+    payload: data,
+  };
+};
+export const updateProducts = data => {
+  console.log('asdasdas', data);
+  return {
+    type: 'SET_UPDATE_PRODUCTS',
     payload: data,
   };
 };

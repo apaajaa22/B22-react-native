@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import Counter from './Counter';
 import Gap from './Gap';
 
-const CartItem = ({price, name, img, onValueChange}) => {
+const CartItem = ({price, name, img, onValueChange, productId}) => {
   return (
     <View style={styles.wrapperItem}>
       <View style={styles.wrapperImage}>
@@ -13,7 +13,7 @@ const CartItem = ({price, name, img, onValueChange}) => {
       <Gap width={25} />
       <View style={styles.wrapperCounter}>
         <Text style={styles.name}>{name}</Text>
-        <Counter onValueChange={onValueChange} />
+        <Counter onValueChange={onValueChange} productId={productId} />
       </View>
     </View>
   );
