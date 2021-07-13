@@ -12,10 +12,8 @@ const Cart = ({navigation, route}) => {
   const [total, setTotal] = useState(1);
   const {products} = useSelector(state => state.carts);
   const [finalData, setFinalData] = useState(null);
-  console.log('products', products);
 
   useEffect(() => {
-    console.log('products ini', products);
     if (products) {
       const data = products.map(res => {
         return {
@@ -24,7 +22,6 @@ const Cart = ({navigation, route}) => {
         };
       });
       setFinalData(data);
-      console.log('final data', finalData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [total]);
@@ -37,7 +34,7 @@ const Cart = ({navigation, route}) => {
   const deliveryCharge = 10000;
 
   const onOrder = () => {
-    navigation.navigate('Delivery', {amount: finalData});
+    navigation.navigate('Delivery', {amount: products});
   };
   return (
     <View style={styles.mainContainer}>

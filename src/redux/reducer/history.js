@@ -1,5 +1,6 @@
 const historyinit = {
   history: [],
+  details: [],
 };
 
 export const historyReducer = (state = historyinit, action) => {
@@ -13,6 +14,11 @@ export const historyReducer = (state = historyinit, action) => {
       return {
         ...state,
         history: [],
+      };
+    case 'SET_GET_DETAILS_HISTORY':
+      return {
+        ...state,
+        details: action.payload,
       };
     default:
       return state;

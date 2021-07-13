@@ -7,7 +7,7 @@ import {IcHand, ILNoHistory, ILUserDefault} from '../assets';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import HistoryItem from '../components/HistoryItem';
-import {getHistory} from '../redux/action/history';
+import {getDetailHistory, getHistory} from '../redux/action/history';
 import {getData} from '../utils/storage';
 
 const History = () => {
@@ -57,6 +57,7 @@ const History = () => {
                 key={data.id}
                 name={data.code}
                 price={totalPrice.toLocaleString('en')}
+                idHistory={data.id}
               />
             );
           })

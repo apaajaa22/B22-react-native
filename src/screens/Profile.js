@@ -34,19 +34,19 @@ const Profile = ({navigation}) => {
             <Image
               style={styles.picture}
               source={
-                profile[0].picture === null
+                profile[0]?.picture === null
                   ? ILUserDefault
                   : {uri: profile[0]?.picture}
               }
             />
             <View style={styles.information}>
-              <Text style={styles.name}>{profile[0].name}</Text>
+              <Text style={styles.name}>{profile[0]?.name}</Text>
               <Gap height={10} />
-              <Text style={styles.contact}>{profile[0].email}</Text>
+              <Text style={styles.contact}>{profile[0]?.email}</Text>
               <Gap height={10} />
-              <Text style={styles.contact}>{profile[0].phone_number}</Text>
+              <Text style={styles.contact}>{profile[0]?.phone_number}</Text>
               <Gap height={10} />
-              <Text style={styles.address}>{profile[0].address}</Text>
+              <Text style={styles.address}>{profile[0]?.address}</Text>
             </View>
           </View>
           <Gap height={26} />

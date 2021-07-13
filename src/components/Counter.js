@@ -40,9 +40,10 @@ const Counter = ({onValueChange, productId}) => {
       }
     }
     const idx = products.findIndex(obj => obj.id === productId);
-    products[idx].amount = setValue(result);
+    products[idx].amount = result;
     onValueChange(result);
-    dispatch(updateProducts(finalData));
+    dispatch(updateProducts(products));
+    setValue(result);
     // console.log(finalData);
   };
   return (
