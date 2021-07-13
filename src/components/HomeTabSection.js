@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
+import {useState} from 'react';
 import {useEffect} from 'react';
 import {
   ScrollView,
@@ -12,6 +13,7 @@ import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 import {useDispatch, useSelector} from 'react-redux';
 import {ILForgotPassword} from '../assets';
+import {getCategory} from '../redux/action/category';
 import {getFoodById} from '../redux/action/home';
 import Gap from './Gap';
 import ItemHome from './ItemHome';
@@ -41,10 +43,13 @@ const renderTabBar = props => (
 
 const Favorite = () => {
   const {favorite} = useSelector(state => state.homeReducer);
+  const [id, setId] = useState(1);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   useEffect(() => {
     dispatch(getFoodById(1));
+    setId(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, navigation]);
   return (
     <View style={{flex: 1}}>
@@ -55,7 +60,7 @@ const Favorite = () => {
           marginRight: 25,
           marginTop: 20,
         }}>
-        <TouchableOpacity onPress={() => navigation.navigate('LoadMore')}>
+        <TouchableOpacity onPress={() => navigation.navigate('LoadMore', {id})}>
           <Text
             style={{
               fontSize: 17,
@@ -113,11 +118,14 @@ const Promo = () => (
 
 const Coffee = () => {
   const {coffee} = useSelector(state => state.homeReducer);
+
+  const [id, setId] = useState(2);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   useEffect(() => {
+    setId(2);
     dispatch(getFoodById(2));
-  }, [dispatch]);
+  }, [dispatch, navigation]);
   return (
     <View style={{flex: 1}}>
       <View
@@ -127,7 +135,7 @@ const Coffee = () => {
           marginRight: 25,
           marginTop: 20,
         }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('LoadMore', {id})}>
           <Text
             style={{
               fontSize: 17,
@@ -156,10 +164,12 @@ const Coffee = () => {
 };
 
 const NonCoffee = () => {
+  const [id, setId] = useState(3);
   const {nonCoffee} = useSelector(state => state.homeReducer);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   useEffect(() => {
+    setId(3);
     dispatch(getFoodById(3));
   }, [dispatch]);
 
@@ -172,7 +182,7 @@ const NonCoffee = () => {
           marginRight: 25,
           marginTop: 20,
         }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('LoadMore', {id})}>
           <Text
             style={{
               fontSize: 17,

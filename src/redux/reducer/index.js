@@ -5,6 +5,7 @@ import {registerReducer} from './auth';
 import {photoReducer} from './profile';
 import {historyReducer} from './history';
 import carts from './cart';
+import category from './category';
 
 const reducer = combineReducers({
   photoReducer,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   registerReducer,
   historyReducer,
   carts,
+  category,
 });
 
 export default reducer;

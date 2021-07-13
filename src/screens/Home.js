@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
 import Header from '../components/Header';
 import HomeTabSection from '../components/HomeTabSection';
+import {getCategory} from '../redux/action/category';
 import {getProfile} from '../redux/action/profile';
 import {getData} from '../utils/storage';
 
@@ -18,12 +19,15 @@ const Home = ({navigation}) => {
   const [token, setToken] = useState('');
   const {profile} = useSelector(state => state.photoReducer);
   const dispatch = useDispatch();
+  const {data} = useSelector(state => state.category);
   useEffect(() => {
+    dispatch(getCategory());
     getData('token').then(res => {
       setToken(res);
     });
     dispatch(getProfile(token));
   }, [dispatch, navigation, token]);
+
   return (
     <View style={styles.mainContainer}>
       <Header />

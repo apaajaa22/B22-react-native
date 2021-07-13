@@ -4,6 +4,7 @@ const initHome = {
   nonCoffee: [],
   foods: [],
   detailProduct: [],
+  pageInfo: {},
 };
 
 export const homeReducer = (state = initHome, action) => {
@@ -12,6 +13,7 @@ export const homeReducer = (state = initHome, action) => {
       return {
         ...state,
         favorite: action.value,
+        pageInfo: action.value,
       };
     case 'SET_COFFEE':
       return {
@@ -32,6 +34,11 @@ export const homeReducer = (state = initHome, action) => {
       return {
         ...state,
         detailProduct: action.value,
+      };
+    case 'SET_PAGE_INFO':
+      return {
+        ...state,
+        pageInfo: action.value,
       };
     default:
       return {
