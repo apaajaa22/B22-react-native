@@ -26,8 +26,6 @@ const HistoryItem = ({onOpen, onClose, onPress, name, price, idHistory}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  console.log(details);
-
   useEffect(() => {
     dispatch(getDetailHistory(token, idHistory));
     getData('token').then(res => {

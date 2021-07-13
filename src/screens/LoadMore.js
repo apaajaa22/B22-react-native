@@ -18,7 +18,7 @@ import {API_URL} from '@env';
 ///categories/:id/products?page=1
 const LoadMore = ({route}) => {
   const {id} = route.params;
-  console.log(id);
+
   const dispatch = useDispatch();
   const [renderData, setRenderData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

@@ -11,7 +11,6 @@ const Counter = ({onValueChange, productId}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('id', productId);
     if (products) {
       const data = products.map(res => {
         return {
@@ -44,7 +43,6 @@ const Counter = ({onValueChange, productId}) => {
     onValueChange(result);
     dispatch(updateProducts(products));
     setValue(result);
-    // console.log(finalData);
   };
   return (
     <View style={styles.content}>

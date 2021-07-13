@@ -26,7 +26,6 @@ const ProductDetail = ({navigation, route}) => {
     const getVariant = detailProduct.variants[idx];
     setPriceProduct(getPrice);
     setSelectVariant(getVariant);
-    console.log(selectVariant);
   };
   const {products} = useSelector(state => state.carts);
 

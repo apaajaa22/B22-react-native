@@ -39,7 +39,6 @@ const EditProfile = ({navigation}) => {
     getData('token').then(res => {
       setToken(res);
     });
-    console.log(profile[0]);
   }, [profile]);
 
   const addPhoto = () => {
@@ -92,6 +91,7 @@ const EditProfile = ({navigation}) => {
         <View style={styles.containerRadio}>
           <View style={styles.wrapperRadio}>
             <RadioButton
+              color="#6A4029"
               value="male"
               status={checked === 'male' ? 'checked' : 'unchecked'}
               onPress={() => setChecked('male')}
@@ -101,6 +101,7 @@ const EditProfile = ({navigation}) => {
           <Gap width={20} />
           <View style={styles.wrapperRadio}>
             <RadioButton
+              color="#6A4029"
               value="female"
               status={checked === 'female' ? 'checked' : 'unchecked'}
               onPress={() => setChecked('female')}

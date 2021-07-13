@@ -11,7 +11,7 @@ const Delivery = ({navigation, route}) => {
   const {profile} = useSelector(state => state.photoReducer);
   const [checked, setChecked] = React.useState('Door delivery');
   const {amount, itemTotal, tax, totalPrice, deliveryCharge} = route.params;
-  console.log(amount);
+
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -36,6 +36,7 @@ const Delivery = ({navigation, route}) => {
           <View style={styles.wrapperDelivery}>
             <View style={styles.wrapperRadio}>
               <RadioButton
+                color="#6A4029"
                 value="Door delivery"
                 status={checked === 'Door delivery' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked('Door delivery')}
@@ -45,6 +46,7 @@ const Delivery = ({navigation, route}) => {
             </View>
             <View style={styles.wrapperRadio}>
               <RadioButton
+                color="#6A4029"
                 value="Pick up at store"
                 status={
                   checked === 'Pick up at store' ? 'checked' : 'unchecked'
@@ -56,6 +58,7 @@ const Delivery = ({navigation, route}) => {
             </View>
             <View style={styles.wrapperRadio}>
               <RadioButton
+                color="#6A4029"
                 value="Dine in"
                 status={checked === 'Dine in' ? 'checked' : 'unchecked'}
                 onPress={() => setChecked('Dine in')}

@@ -20,7 +20,6 @@ import History from '../screens/History';
 import ProductDetail from '../screens/ProductDetail';
 import Cart from '../screens/Cart';
 import Coupon from '../screens/Coupon';
-import Checkout from '../screens/Checkout';
 import Payment from '../screens/Payment';
 import LoadMore from '../screens/LoadMore';
 import Delivery from '../screens/Delivery';
@@ -165,15 +164,7 @@ const Router = () => {
           ...TransitionPresets.SlideFromRightIOS,
         }}
       />
-      <Stack.Screen
-        component={Checkout}
-        name="Checkout"
-        options={{
-          headerShown: false,
-          title: 'Checkout',
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
+
       <Stack.Screen
         component={Payment}
         name="Payment"

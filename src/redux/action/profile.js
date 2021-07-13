@@ -15,7 +15,6 @@ export const getProfile = token => dispatch => {
 };
 
 export const editProfile = (token, data, photo, navigation) => dispatch => {
-  console.log(data);
   const form = new FormData();
   form.append('name', data.name);
   form.append('email', data.email);

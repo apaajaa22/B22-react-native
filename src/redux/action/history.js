@@ -16,7 +16,6 @@ export const getHistory = token => dispatch => {
       dispatch({type: 'SET_LOADING', payload: false});
     })
     .catch(err => {
-      console.log(err.response.data.message);
       dispatch({type: 'SET_LOADING', payload: false});
     });
 };

@@ -20,8 +20,6 @@ const Cart = ({navigation, route}) => {
   const totalPrice = itemTotal + tax + deliveryCharge;
 
   useEffect(() => {
-    console.log('new', products);
-
     if (products) {
       const data = products.map(res => {
         return {

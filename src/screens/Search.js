@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   StyleSheet,
   Text,
@@ -18,7 +19,8 @@ import {useDispatch, useSelector} from 'react-redux';
 
 const Search = ({navigation}) => {
   const {data} = useSelector(state => state.searchReducer);
-  console.log(data);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
   const renderItem = ({item}) => {
@@ -37,6 +39,19 @@ const Search = ({navigation}) => {
   const onSearch = () => {
     dispatch(getItemBySearch(search));
   };
+
+  const footerComponent = () => {
+    return (
+      <View>
+        <ActivityIndicator size="large" color="#FFBA33" />
+      </View>
+    );
+  };
+
+  const loadMoreProduct = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>

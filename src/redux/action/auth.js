@@ -32,7 +32,6 @@ export const signInAction = (data, navigation) => dispatch => {
 };
 
 export const signUpAction = data => dispatch => {
-  console.log(data);
   const form = new URLSearchParams();
   form.append('email', data.email);
   form.append('password', data.password);

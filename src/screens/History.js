@@ -17,7 +17,6 @@ const History = () => {
 
   useEffect(() => {
     getData('token').then(res => {
-      console.log(res);
       setToken(res);
     });
     dispatch(getHistory(token));

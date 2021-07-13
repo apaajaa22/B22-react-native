@@ -21,8 +21,7 @@ const Payment = ({route, navigation}) => {
       setToken(res);
     });
   }, []);
-  console.log(checked);
-  console.log(amount);
+
   const dispatch = useDispatch();
 
   const onPay = () => {
