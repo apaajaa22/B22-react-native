@@ -17,6 +17,7 @@ import {useEffect} from 'react';
 import {getItemBySearch} from '../redux/action/search';
 import {useDispatch, useSelector} from 'react-redux';
 import {Picker} from '@react-native-picker/picker';
+import toastMessage from '../utils/showMessage';
 
 const Search = ({navigation}) => {
   const [sort, setSort] = useState('');
@@ -45,6 +46,11 @@ const Search = ({navigation}) => {
   const loadMoreProduct = () => {
     setCurrentPage(currentPage + 1);
   };
+
+  useEffect(() => {
+    dispatch(getItemBySearch(search, sort));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sort]);
 
   return (
     <View>
@@ -78,14 +84,20 @@ const Search = ({navigation}) => {
           </Picker>
         </View>
         <Gap height={10} />
-        <FlatList
-          contentContainerStyle={styles.flatlist}
-          numColumns={2}
-          data={DATA}
-          renderItem={renderItem}
-          onEndReached={loadMoreProduct}
-          onEndReachedThreshold={0}
-        />
+        {data.length !== 0 ? (
+          <FlatList
+            contentContainerStyle={styles.flatlist}
+            numColumns={2}
+            data={DATA}
+            renderItem={renderItem}
+            onEndReached={loadMoreProduct}
+            onEndReachedThreshold={0}
+          />
+        ) : (
+          <View style={styles.notfoundwrapper}>
+            <Text style={styles.notfound}>item could not be found</Text>
+          </View>
+        )}
       </ScrollView>
     </View>
   );
@@ -125,5 +137,15 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     alignItems: 'center',
+  },
+  notfoundwrapper: {
+    marginTop: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  notfound: {
+    textAlign: 'center',
+    fontSize: 22,
+    fontWeight: 'bold',
   },
 });

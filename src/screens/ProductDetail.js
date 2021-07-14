@@ -19,6 +19,7 @@ const ProductDetail = ({navigation, route}) => {
 
   const dispatch = useDispatch();
 
+  console.log(detailProduct);
   useEffect(() => {
     dispatch(getFoodDetail(id));
   }, [dispatch, id, navigation, products, selectVariant]);
@@ -38,10 +39,10 @@ const ProductDetail = ({navigation, route}) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header third />
         <View style={styles.wrapperPicture}>
-          <Image source={{uri: picture}} style={styles.picture} />
+          <Image source={{uri: detailProduct.picture}} style={styles.picture} />
         </View>
         <View style={styles.wrapperName}>
-          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.name}>{detailProduct.name}</Text>
           <Text style={styles.price}>
             IDR {priceProduct.toLocaleString('en')}
           </Text>
@@ -61,11 +62,11 @@ const ProductDetail = ({navigation, route}) => {
         </View>
         <View style={styles.wrapperDelivery}>
           <Text style={styles.title}>Delivery info</Text>
-          <Text style={styles.subTitle}>{delivery_on}</Text>
+          <Text style={styles.subTitle}>{detailProduct.delivery_on}</Text>
         </View>
         <View style={styles.wrapperInfo}>
           <Text style={styles.title}>Description</Text>
-          <Text style={styles.subTitle}>{description}</Text>
+          <Text style={styles.subTitle}>{detailProduct.description}</Text>
         </View>
         <Gap height={40} />
         <Button
