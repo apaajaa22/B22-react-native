@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux';
 import {signUpAction} from '../redux/action/auth';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 
-const Register = () => {
+const Register = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
@@ -21,7 +21,7 @@ const Register = () => {
     phone: phone,
   };
   const onSubmit = () => {
-    dispatch(signUpAction(formData));
+    dispatch(signUpAction(formData, navigation));
   };
 
   return (

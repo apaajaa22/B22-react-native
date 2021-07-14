@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
   },
-  containerFlat: {marginLeft: 15},
+  containerFlat: {alignItems: 'center'},
   footer: {
     marginBottom: 20,
   },

@@ -122,18 +122,18 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: '500',
     fontSize: 17,
-    borderBottomColor: '#f2f2f2',
+    borderBottomColor: '#6A4029',
     borderBottomWidth: 1,
     paddingBottom: 5,
-    marginBottom: 5,
+    marginBottom: 8,
   },
   contact: {
     color: '#6A4029',
-    borderBottomColor: '#F2F2F2',
+    borderBottomColor: '#6A4029',
     borderBottomWidth: 1,
     fontSize: 15,
     paddingBottom: 5,
-    marginBottom: 5,
+    marginBottom: 8,
   },
   deliveryTitle: {
     fontWeight: 'bold',
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   deliveryInput: {
-    borderBottomColor: '#F2F2F2',
+    borderBottomColor: '#6A4029',
     borderBottomWidth: 1,
     color: '#6A4029',
     flex: 1,

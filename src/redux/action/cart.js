@@ -3,6 +3,7 @@ import {API_URL} from '@env';
 import toastMessage from '../../utils/showMessage';
 
 export const addProducts = data => {
+  toastMessage('Item added to cart', 'success');
   return {
     type: 'SET_CART_ADD_ITEM',
     payload: data,
@@ -41,3 +42,8 @@ export const createTransaction = (data, address, token, navigation) => {
     }
   };
 };
+
+export const deleteItem = payload => ({
+  type: 'SET_DELETE_PRODUCTS',
+  payload,
+});

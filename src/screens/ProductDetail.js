@@ -15,6 +15,8 @@ const ProductDetail = ({navigation, route}) => {
   const [priceProduct, setPriceProduct] = useState(price);
   const {detailProduct} = useSelector(state => state.homeReducer);
   const [selectVariant, setSelectVariant] = useState('');
+  const [press, setPress] = useState(false);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,6 +24,8 @@ const ProductDetail = ({navigation, route}) => {
   }, [dispatch, id, navigation, products, selectVariant]);
 
   const pressVariant = idx => {
+    setPress(true);
+    console.log(press);
     const getPrice = detailProduct.variants[idx].price;
     const getVariant = detailProduct.variants[idx];
     setPriceProduct(getPrice);
@@ -38,7 +42,9 @@ const ProductDetail = ({navigation, route}) => {
         </View>
         <View style={styles.wrapperName}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.price}>IDR {priceProduct}</Text>
+          <Text style={styles.price}>
+            IDR {priceProduct.toLocaleString('en')}
+          </Text>
         </View>
         <View style={styles.containerVariant}>
           {detailProduct.variants?.map((data, idx) => {
@@ -47,7 +53,7 @@ const ProductDetail = ({navigation, route}) => {
                 onPress={() => pressVariant(idx)}
                 activeOpacity={0.7}
                 key={data.price}
-                style={styles.wrapperVariant}>
+                style={styles.wrapperVariant(press)}>
                 <Text style={styles.textVariant}>{data.code}</Text>
               </TouchableOpacity>
             );
@@ -103,15 +109,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
   },
-  wrapperVariant: {
+  wrapperVariant: press => ({
     width: 70,
     height: 70,
-    backgroundColor: '#FFBA33',
+    backgroundColor: press ? '#FFBA33' : '#fff',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 70 / 2,
     marginHorizontal: 20,
-  },
+  }),
   textVariant: {
     fontSize: 18,
     fontWeight: 'bold',

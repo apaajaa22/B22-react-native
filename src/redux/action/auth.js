@@ -31,7 +31,7 @@ export const signInAction = (data, navigation) => dispatch => {
     });
 };
 
-export const signUpAction = data => dispatch => {
+export const signUpAction = (data, navigation) => dispatch => {
   const form = new URLSearchParams();
   form.append('email', data.email);
   form.append('password', data.password);
@@ -42,6 +42,7 @@ export const signUpAction = data => dispatch => {
     .then(res => {
       dispatch({type: 'SET_LOADING', payload: false});
       toastMessage(res?.data?.message, 'success');
+      navigation.navigate('Login');
     })
     .catch(err => {
       dispatch({type: 'SET_LOADING', payload: false});

@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateProducts} from '../redux/action/cart';
+import {deleteItem, updateProducts} from '../redux/action/cart';
+import toastMessage from '../utils/showMessage';
 
 const Counter = ({onValueChange, productId}) => {
   const [value, setValue] = useState(1);

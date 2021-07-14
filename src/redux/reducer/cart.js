@@ -19,6 +19,13 @@ const carts = (state = initialState, action) => {
         ...state,
         products: action.payload,
       };
+    case 'SET_DELETE_PRODUCTS':
+      const data = [...state.products];
+      const removed = data.splice(action.payload);
+      return {
+        ...state,
+        data,
+      };
     default:
       return {...state};
   }
