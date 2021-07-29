@@ -53,7 +53,7 @@ export default Home;
 
 const styles = StyleSheet.create({
   mainContainer: {backgroundColor: '#fff', flex: 1},
-  container: {paddingHorizontal: 31},
+  container: {paddingHorizontal: 31, marginTop: -20},
   title: {
     width: 285,
     fontSize: 34,

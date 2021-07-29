@@ -14,15 +14,17 @@ import Gap from '../components/Gap';
 import {ScrollView} from 'react-native-gesture-handler';
 import ItemLoad from '../components/ItemLoad';
 import {useEffect} from 'react';
-import {getItemBySearch} from '../redux/action/search';
+import {getItemBySearch, getProducts} from '../redux/action/search';
 import {useDispatch, useSelector} from 'react-redux';
 import {Picker} from '@react-native-picker/picker';
 import toastMessage from '../utils/showMessage';
 
 const Search = ({navigation}) => {
   const [sort, setSort] = useState('');
-  const {data} = useSelector(state => state.searchReducer);
+  const {data, pageInfo} = useSelector(state => state.searchReducer);
   const [currentPage, setCurrentPage] = useState(1);
+
+  console.log(pageInfo);
 
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
@@ -44,7 +46,7 @@ const Search = ({navigation}) => {
   };
 
   const loadMoreProduct = () => {
-    setCurrentPage(currentPage + 1);
+    dispatch(getProducts(pageInfo.nextPage));
   };
 
   useEffect(() => {

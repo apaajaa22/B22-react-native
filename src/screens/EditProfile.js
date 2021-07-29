@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Alert,
   Image,
+  Modal,
   ScrollView,
   StyleSheet,
   Text,
@@ -8,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {RadioButton} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {ILUserDefault} from '../assets';
@@ -34,6 +36,7 @@ const EditProfile = ({navigation}) => {
   const [photo, setPhoto] = useState(
     profile[0].picture === null ? ILUserDefault : {uri: profile[0]?.picture},
   );
+  const [modalVisible, setModalVisible] = useState(false);
   const [token, setToken] = useState('');
   useEffect(() => {
     getData('token').then(res => {
@@ -41,10 +44,28 @@ const EditProfile = ({navigation}) => {
     });
   }, [profile]);
 
-  const addPhoto = () => {
-    launchImageLibrary(
-      {quality: 0.5, maxHeight: 130, maxWidth: 130},
-      response => {
+  const addPhoto = type => {
+    setModalVisible(!modalVisible);
+    if (type === 'galery') {
+      launchImageLibrary(
+        {quality: 0.5, maxHeight: 130, maxWidth: 130},
+        response => {
+          if (response.didCancel) {
+            toastMessage('You dont choose any photo');
+          } else {
+            setPhoto({uri: response.assets[0].uri});
+            const dataImage = {
+              uri: response.assets[0].uri,
+              type: response.assets[0].type,
+              name: response.assets[0].fileName,
+            };
+            dispatch({type: 'SET_PHOTO', payload: dataImage});
+            dispatch({type: 'SET_UPLOAD_STATUS', payload: true});
+          }
+        },
+      );
+    } else {
+      launchCamera({quality: 0.5, maxHeight: 130, maxWidth: 130}, response => {
         if (response.didCancel) {
           toastMessage('You dont choose any photo');
         } else {
@@ -57,8 +78,8 @@ const EditProfile = ({navigation}) => {
           dispatch({type: 'SET_PHOTO', payload: dataImage});
           dispatch({type: 'SET_UPLOAD_STATUS', payload: true});
         }
-      },
-    );
+      });
+    }
   };
 
   const formData = {
@@ -75,9 +96,33 @@ const EditProfile = ({navigation}) => {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.modalContainer}>
+          <View style={styles.wrapperModal}>
+            <TouchableOpacity onPress={() => addPhoto('galery')}>
+              <Text>Choose photo from galery</Text>
+            </TouchableOpacity>
+            <Gap height={20} />
+            <TouchableOpacity onPress={() => addPhoto('take')}>
+              <Text>Take a photo</Text>
+            </TouchableOpacity>
+            <Gap height={20} />
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+              <Text>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
       <Header secondary label="Edit Profile" />
       <View style={styles.wrapperPicture}>
-        <TouchableOpacity onPress={addPhoto}>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Image source={photo} style={styles.picture} />
         </TouchableOpacity>
       </View>
@@ -172,5 +217,17 @@ const styles = StyleSheet.create({
   wrapperRadio: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  modalContainer: {
+    justifyContent: 'flex-end',
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#000000a0',
+  },
+  wrapperModal: {
+    backgroundColor: '#fff',
+    height: 130,
+    justifyContent: 'center',
+    paddingLeft: 30,
   },
 });

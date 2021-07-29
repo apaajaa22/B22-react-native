@@ -27,6 +27,12 @@ export const signInAction = (data, navigation) => dispatch => {
     })
     .catch(err => {
       dispatch({type: 'SET_LOADING', payload: false});
+      if (!data.email.includes('@')) {
+        toastMessage('email required');
+      }
+      if (!data.password.length < 6) {
+        toastMessage('password length must be 6 characters at least');
+      }
       toastMessage(err?.response?.data?.message);
     });
 };
@@ -45,6 +51,16 @@ export const signUpAction = (data, navigation) => dispatch => {
       navigation.navigate('Login');
     })
     .catch(err => {
+      dispatch({type: 'SET_LOADING', payload: false});
+      if (!data.email.includes('@')) {
+        toastMessage('email required');
+      }
+      if (!data.password.length < 6) {
+        toastMessage('password length must be 6 characters at least');
+      }
+      if (!data.phone.length < 10) {
+        toastMessage('phone number length must be 11 characters at least');
+      }
       dispatch({type: 'SET_LOADING', payload: false});
       toastMessage(err?.response?.data?.message);
     });
