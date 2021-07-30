@@ -28,9 +28,15 @@ const ProductDetail = ({navigation, route}) => {
     setPress(true);
     console.log(press);
     const getPrice = detailProduct.variants[idx].price;
-    const getVariant = detailProduct.variants[idx];
+    const getVariant = detailProduct.variants.map(res => {
+      return {
+        ...res,
+        amount: 1,
+      };
+    });
+
     setPriceProduct(getPrice);
-    setSelectVariant(getVariant);
+    setSelectVariant(getVariant[idx]);
   };
   const {products} = useSelector(state => state.carts);
 

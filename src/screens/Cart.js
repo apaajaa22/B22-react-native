@@ -19,18 +19,19 @@ const Cart = ({navigation, route}) => {
   const tax = (10 / 100) * itemTotal;
   const totalPrice = itemTotal + tax + deliveryCharge;
 
-  useEffect(() => {
-    if (products) {
-      const data = products.map(res => {
-        return {
-          ...res,
-          amount: total,
-        };
-      });
-      setFinalData(data);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [total, products]);
+  // useEffect(() => {
+  //   if (products) {
+  //     const data = products.map(res => {
+  //       return {
+  //         ...res,
+  //         amount: total,
+  //       };
+  //     });
+  //     setFinalData(data);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [total, products]);
+  console.log(products);
 
   const onCouter = e => {
     console.log(e);
@@ -57,7 +58,7 @@ const Cart = ({navigation, route}) => {
                 <CartItem
                   key={data.id}
                   name={data.product}
-                  price={data.price.toLocaleString('en')}
+                  price={data?.price?.toLocaleString('en')}
                   img={{uri: data.picture}}
                   onValueChange={onCouter}
                   productId={data.id}
