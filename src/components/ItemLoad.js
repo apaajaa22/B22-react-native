@@ -28,7 +28,7 @@ const ItemLoad = ({img, name, price, onPress}) => {
             backgroundColor: '#fff',
           }}
         />
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', flex: 1}}>
           <Text
             style={{
               fontSize: 22,
@@ -36,12 +36,14 @@ const ItemLoad = ({img, name, price, onPress}) => {
               width: 125,
               textAlign: 'center',
               marginVertical: 2,
+              flex: 1,
             }}>
             {name}
           </Text>
           <Text style={{fontSize: 17, fontWeight: '700', color: '#6A4029'}}>
             IDR {price}
           </Text>
+          <Gap height={15} />
         </View>
       </View>
       <Gap height={40} />
