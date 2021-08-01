@@ -1,4 +1,4 @@
-package com.coffeeshop;
+package com.rahadian.coffeeshop;
 
 import com.facebook.react.ReactActivity;
 
