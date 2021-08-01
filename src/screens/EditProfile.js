@@ -20,6 +20,8 @@ import Header from '../components/Header';
 import {editProfile} from '../redux/action/profile';
 import toastMessage from '../utils/showMessage';
 import {getData} from '../utils/storage';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const EditProfile = ({navigation}) => {
   const dispatch = useDispatch();
@@ -32,13 +34,14 @@ const EditProfile = ({navigation}) => {
   const [birth, setBirth] = useState(profile[0]?.birth);
   const [address, setAddress] = useState(profile[0]?.address);
 
-  const [checked, setChecked] = React.useState('male');
+  const [checked, setChecked] = React.useState(profile[0]?.gender || 'male');
   const [photo, setPhoto] = useState(
     profile[0].picture === null ? ILUserDefault : {uri: profile[0]?.picture},
   );
   const [modalVisible, setModalVisible] = useState(false);
   const [token, setToken] = useState('');
   useEffect(() => {
+    console.log(profile[0]);
     getData('token').then(res => {
       setToken(res);
     });
@@ -90,8 +93,29 @@ const EditProfile = ({navigation}) => {
     address: address,
     gender: checked,
   };
+
   const onSubmit = () => {
     dispatch(editProfile(token, formData, photoReducer, navigation));
+  };
+
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = e => {
+    const newDate = new Date(e);
+    const date = newDate.getDate();
+    const month = newDate.getMonth();
+    const year = newDate.getFullYear();
+    const finalDate = `${year}-${month + 1}-${date}`;
+    setBirth(finalDate);
+    hideDatePicker();
   };
 
   return (
@@ -137,7 +161,7 @@ const EditProfile = ({navigation}) => {
           <View style={styles.wrapperRadio}>
             <RadioButton
               color="#6A4029"
-              value="male"
+              value={checked}
               status={checked === 'male' ? 'checked' : 'unchecked'}
               onPress={() => setChecked('male')}
             />
@@ -147,7 +171,7 @@ const EditProfile = ({navigation}) => {
           <View style={styles.wrapperRadio}>
             <RadioButton
               color="#6A4029"
-              value="female"
+              value={checked}
               status={checked === 'female' ? 'checked' : 'unchecked'}
               onPress={() => setChecked('female')}
             />
@@ -170,11 +194,18 @@ const EditProfile = ({navigation}) => {
         />
         <Gap height={21} />
         <Text style={styles.label}>Date of Birth</Text>
-        <TextInput
-          value={birth}
-          onChangeText={e => setBirth(e)}
-          style={styles.input}
-        />
+        <View style={styles.input}>
+          <TextInput value={birth} onChangeText={e => setBirth(e)} />
+          <TouchableOpacity onPress={showDatePicker}>
+            <Icon name="date-range" size={25} />
+          </TouchableOpacity>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+        </View>
         <Gap height={21} />
         <Text style={styles.label}>Delivery Address :</Text>
         <TextInput
@@ -212,7 +243,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 31,
     paddingVertical: 45,
   },
-  input: {borderBottomWidth: 1, borderBottomColor: '#9F9F9F'},
+  input: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#9F9F9F',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   containerRadio: {flexDirection: 'row', paddingTop: 20, marginLeft: -10},
   wrapperRadio: {
     flexDirection: 'row',
