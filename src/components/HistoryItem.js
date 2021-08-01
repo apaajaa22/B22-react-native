@@ -127,7 +127,7 @@ const HistoryItem = ({onOpen, onClose, onPress, name, price, idHistory}) => {
             onRightButtonsCloseRelease={onClose}>
             <View style={[styles.listItem, styles.listItemAdd]}>
               <Image source={ILForgotPassword} style={styles.picture} />
-              <View>
+              <View style={styles.wrapperContent}>
                 <Text style={styles.title}>{name}</Text>
                 <Text style={styles.price}>IDR {price}</Text>
                 <Text style={styles.delivery}>

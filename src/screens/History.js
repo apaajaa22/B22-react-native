@@ -10,7 +10,7 @@ import HistoryItem from '../components/HistoryItem';
 import {getDetailHistory, getHistory} from '../redux/action/history';
 import {getData} from '../utils/storage';
 
-const History = () => {
+const History = ({navigation}) => {
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
   const {history} = useSelector(state => state.historyReducer);
@@ -28,24 +28,18 @@ const History = () => {
         <Header secondary />
         <View style={styles.container}>
           <Text style={styles.title}>Order History</Text>
-          <View style={styles.wrapperSubTitle}>
-            <Image source={IcHand} />
-            <Text style={styles.subTitle}>Swipe on an item to delete</Text>
-          </View>
         </View>
         {history.length < 1 ? (
           <View style={styles.containerNoHistory}>
             <View style={styles.wrapperNoHistory}>
               <Image source={ILNoHistory} />
               <Text style={styles.noHistoryTitle}>No history yet</Text>
-              <Text style={styles.noHistorySubTitle}>
-                Hit the orange button down below to Create an order
-              </Text>
             </View>
             <Button
               colorButton="#6A4029"
               textColorButton="#fff"
               label="Start Ordering"
+              onPress={() => navigation.navigate('home')}
             />
           </View>
         ) : (
@@ -89,7 +83,7 @@ const styles = StyleSheet.create({
   containerNoHistory: {justifyContent: 'center'},
   wrapperNoHistory: {
     alignItems: 'center',
-    marginVertical: 120,
+    marginVertical: 140,
   },
   noHistoryTitle: {fontWeight: 'bold', fontSize: 28, marginTop: 10},
   noHistorySubTitle: {
