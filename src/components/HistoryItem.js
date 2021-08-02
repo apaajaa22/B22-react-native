@@ -16,7 +16,11 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {getData} from '../utils/storage';
 import {useDispatch} from 'react-redux';
-import {getDetailHistory} from '../redux/action/history';
+import {
+  getDetailHistory,
+  deleteHistory,
+  getHistory,
+} from '../redux/action/history';
 import Gap from './Gap';
 
 const HistoryItem = ({onOpen, onClose, onPress, name, price, idHistory}) => {
@@ -27,12 +31,19 @@ const HistoryItem = ({onOpen, onClose, onPress, name, price, idHistory}) => {
   const navigation = useNavigation();
 
   useEffect(() => {
+    dispatch(getHistory(token));
     dispatch(getDetailHistory(token, idHistory));
     getData('token').then(res => {
       setToken(res);
     });
     LogBox.ignoreAllLogs();
   }, [dispatch, idHistory, token, modalVisible]);
+
+  const onDelete = () => {
+    dispatch(deleteHistory(token, idHistory));
+    setModalVisible(!modalVisible);
+    navigation.navigate('Home');
+  };
 
   return (
     <>
@@ -42,7 +53,6 @@ const HistoryItem = ({onOpen, onClose, onPress, name, price, idHistory}) => {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>
@@ -78,7 +88,7 @@ const HistoryItem = ({onOpen, onClose, onPress, name, price, idHistory}) => {
                       <Text style={styles.label}>{data.payment_method}</Text>
                     </View>
                     <View style={styles.detailUserTransaction}>
-                      <Text style={styles.label}>Shipping Address</Text>
+                      <Text style={styles.label}>Address</Text>
                       <Text style={styles.label}>{data.shipping_address}</Text>
                     </View>
                     <View style={styles.detailUserTransaction}>
@@ -108,13 +118,17 @@ const HistoryItem = ({onOpen, onClose, onPress, name, price, idHistory}) => {
                 onPress={() => setModalVisible(!modalVisible)}>
                 <Text style={styles.textStyle}>Close detail history</Text>
               </TouchableOpacity>
+              <Gap height={20} />
+              <TouchableOpacity onPress={onDelete} style={styles.buttonDelete}>
+                <Text style={styles.textStyle}>Delete</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
         <TouchableOpacity
           style={[styles.button, styles.buttonOpen]}
           onPress={() => setModalVisible(true)}>
-          <Swipeable
+          {/* <Swipeable
             rightButtons={[
               <TouchableOpacity
                 onPress={onPress}
@@ -124,18 +138,18 @@ const HistoryItem = ({onOpen, onClose, onPress, name, price, idHistory}) => {
               </TouchableOpacity>,
             ]}
             onRightButtonsOpenRelease={onOpen}
-            onRightButtonsCloseRelease={onClose}>
-            <View style={[styles.listItem, styles.listItemAdd]}>
-              <Image source={ILForgotPassword} style={styles.picture} />
-              <View style={styles.wrapperContent}>
-                <Text style={styles.title}>{name}</Text>
-                <Text style={styles.price}>IDR {price}</Text>
-                <Text style={styles.delivery}>
-                  Waiting for delivery [will arrive at 3 PM]
-                </Text>
-              </View>
+            onRightButtonsCloseRelease={onClose}> */}
+          <View style={[styles.listItem, styles.listItemAdd]}>
+            <Image source={ILForgotPassword} style={styles.picture} />
+            <View style={styles.wrapperContent}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>IDR {price}</Text>
+              <Text style={styles.delivery}>
+                Waiting for delivery [will arrive at 3 PM]
+              </Text>
             </View>
-          </Swipeable>
+          </View>
+          {/* </Swipeable> */}
         </TouchableOpacity>
       </View>
     </>
@@ -250,5 +264,10 @@ const styles = StyleSheet.create({
   totalPrice: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  buttonDelete: {
+    backgroundColor: '#f39c12',
+    padding: 10,
+    borderRadius: 8,
   },
 });

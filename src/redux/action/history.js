@@ -38,6 +38,24 @@ export const getDetailHistory = (token, id) => {
   };
 };
 
+export const deleteHistory = (token, id) => {
+  return async dispatch => {
+    try {
+      const {data} = await http(token).delete(
+        `${API_URL}/private/transactions/${id}`,
+      );
+      dispatch(getHistory(token));
+      toastMessage('Delete successfully', 'success');
+      dispatch({
+        type: 'SET_HISTORY',
+        payload: data.results,
+      });
+    } catch (err) {
+      toastMessage(err?.response?.data?.message);
+    }
+  };
+};
+
 // export const getHistorySec =  token => async dispatch => {
 //   const {data} = await http(token).get(`${API_URL}/private/transactions`);
 // };

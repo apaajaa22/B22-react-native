@@ -14,6 +14,7 @@ const History = ({navigation}) => {
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
   const {history} = useSelector(state => state.historyReducer);
+  console.log('historyyyy', history);
 
   useEffect(() => {
     getData('token').then(res => {
@@ -29,7 +30,7 @@ const History = ({navigation}) => {
         <View style={styles.container}>
           <Text style={styles.title}>Order History</Text>
         </View>
-        {history.length < 1 ? (
+        {history?.length < 1 || history === undefined ? (
           <View style={styles.containerNoHistory}>
             <View style={styles.wrapperNoHistory}>
               <Image source={ILNoHistory} />
