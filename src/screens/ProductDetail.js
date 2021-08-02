@@ -60,7 +60,7 @@ const ProductDetail = ({navigation, route}) => {
                 onPress={() => pressVariant(idx)}
                 activeOpacity={0.7}
                 key={data.price}
-                style={styles.wrapperVariant(press)}>
+                style={styles.wrapperVariant}>
                 <Text style={styles.textVariant}>{data.code}</Text>
               </TouchableOpacity>
             );
@@ -116,15 +116,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
   },
-  wrapperVariant: press => ({
+  wrapperVariant: {
     width: 70,
     height: 70,
-    backgroundColor: press ? '#FFBA33' : '#fff',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 70 / 2,
     marginHorizontal: 20,
-  }),
+  },
   textVariant: {
     fontSize: 18,
     fontWeight: 'bold',
