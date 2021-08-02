@@ -1,9 +1,10 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Counter from './Counter';
 import Gap from './Gap';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const CartItem = ({price, name, img, onValueChange, productId}) => {
+const CartItem = ({price, name, img, onValueChange, productId, onDelete}) => {
   return (
     <View style={styles.wrapperItem}>
       <View style={styles.wrapperImage}>
@@ -15,6 +16,9 @@ const CartItem = ({price, name, img, onValueChange, productId}) => {
         <Text style={styles.name}>{name}</Text>
         <Counter onValueChange={onValueChange} productId={productId} />
       </View>
+      <TouchableOpacity onPress={onDelete}>
+        <Icon name="close-sharp" size={23} color="red" />
+      </TouchableOpacity>
     </View>
   );
 };

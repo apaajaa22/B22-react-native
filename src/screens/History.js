@@ -40,7 +40,7 @@ const History = ({navigation}) => {
               colorButton="#6A4029"
               textColorButton="#fff"
               label="Start Ordering"
-              onPress={() => navigation.navigate('home')}
+              onPress={() => navigation.navigate('Home')}
             />
           </View>
         ) : (

@@ -13,28 +13,19 @@ const Cart = ({navigation, route}) => {
   const {products} = useSelector(state => state.carts);
   const [finalData, setFinalData] = useState(null);
 
-  const price = products.map(e => e.price * e.amount);
-  const itemTotal = price.reduce((acc, curr) => acc + curr, 0);
+  const price = products?.map(e => e.price * e.amount);
+  const itemTotal = price?.reduce((acc, curr) => acc + curr, 0);
   const deliveryCharge = 10000;
   const tax = (10 / 100) * itemTotal;
   const totalPrice = itemTotal + tax + deliveryCharge;
 
-  // useEffect(() => {
-  //   if (products) {
-  //     const data = products.map(res => {
-  //       return {
-  //         ...res,
-  //         amount: total,
-  //       };
-  //     });
-  //     setFinalData(data);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [total, products]);
-  console.log(products);
-
   const onCouter = e => {
     console.log(e);
+  };
+
+  const deleteItem = (item, idx) => {
+    delete products[idx];
+    navigation.navigate('Home');
   };
 
   const onOrder = () => {
@@ -48,7 +39,7 @@ const Cart = ({navigation, route}) => {
   };
   return (
     <View style={styles.mainContainer}>
-      {products.length > 0 ? (
+      {products.length !== 0 ? (
         <ScrollView showsVerticalScrollIndicator={false}>
           <Header secondary label="My Cart" />
           <View style={styles.content}>
@@ -62,6 +53,7 @@ const Cart = ({navigation, route}) => {
                   img={{uri: data.picture}}
                   onValueChange={onCouter}
                   productId={data.id}
+                  onDelete={() => deleteItem(data, idx)}
                 />
               );
             })}
