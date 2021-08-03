@@ -7,7 +7,7 @@ const ItemLoad = ({img, name, price, onPress}) => {
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
-      style={{marginTop: 40, alignItems: 'center', marginHorizontal: 10}}>
+      style={{marginTop: 20, alignItems: 'center', marginHorizontal: 5}}>
       <View
         style={{
           alignItems: 'center',

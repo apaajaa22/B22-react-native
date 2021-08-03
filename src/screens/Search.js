@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     alignItems: 'center',
+    paddingTop: 20,
   },
   notfoundwrapper: {
     marginTop: 100,
