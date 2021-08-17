@@ -13,10 +13,7 @@ const HeaderChat = ({pic, name, email}) => {
         <IconFeather name="chevron-left" size={32} color="#6A4029" />
       </TouchableOpacity>
       <View style={styles.containerInfo}>
-        <Image
-          source={pic !== null ? pic : ILUserDefault}
-          style={styles.picture}
-        />
+        <Image source={pic} style={styles.picture} />
         <Gap height={8} />
         <Text style={styles.name}>{name}</Text>
         <Gap height={5} />

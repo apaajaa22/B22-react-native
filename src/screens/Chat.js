@@ -72,7 +72,9 @@ const Chat = ({navigation}) => {
                 <CardChat
                   isMe={isMe}
                   onPress={() => navigation.navigate('ChatDetails', res)}
-                  pic={{uri: res.picture}}
+                  pic={
+                    res.picture !== null ? {uri: res.picture} : ILUserDefault
+                  }
                   name={res.name}
                   msg={res.message}
                 />

@@ -18,6 +18,7 @@ import {deleteChat, getChat, sendChat} from '../redux/action/chat';
 import {getData} from '../utils/storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {io} from 'socket.io-client';
+import {ILUserDefault} from '../assets';
 
 const socket = io('http://localhost:8080');
 
@@ -67,7 +68,11 @@ const ChatDetailsSec = ({navigation, route}) => {
   };
   return (
     <View style={styles.container}>
-      <HeaderChat pic={{uri: picture}} name={name} email={phone_number} />
+      <HeaderChat
+        pic={picture !== null ? {uri: picture} : ILUserDefault}
+        name={name}
+        email={phone_number}
+      />
       <Gap height={10} />
       <ScrollView showsVerticalScrollIndicator={false}>
         {chat.message?.map(res => {

@@ -18,6 +18,7 @@ import {deleteChat, getChat, sendChat} from '../redux/action/chat';
 import {getData} from '../utils/storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {io} from 'socket.io-client';
+import {ILUserDefault} from '../assets';
 
 const socket = io('http://localhost:8080');
 
@@ -81,7 +82,7 @@ const ChatDetails = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       <HeaderChat
-        pic={{uri: picture}}
+        pic={picture !== null ? {uri: picture} : ILUserDefault}
         name={name}
         email={profile[0]?.phone_number === sender ? recipient : sender}
       />
