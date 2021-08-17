@@ -7,6 +7,7 @@ import {historyReducer} from './history';
 import carts from './cart';
 import category from './category';
 import searchReducer from './search';
+import chat from './chat';
 
 const reducer = combineReducers({
   photoReducer,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   carts,
   category,
   searchReducer,
+  chat,
 });
 
 export default reducer;

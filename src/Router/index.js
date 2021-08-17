@@ -24,6 +24,8 @@ import Payment from '../screens/Payment';
 import LoadMore from '../screens/LoadMore';
 import Delivery from '../screens/Delivery';
 import Search from '../screens/Search';
+import ChatDetails from '../screens/ChatDetails';
+import ChatDetailsSec from '../screens/ChatDetailsSec';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -198,6 +200,24 @@ const Router = () => {
         options={{
           headerShown: false,
           title: 'Search',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        component={ChatDetails}
+        name="ChatDetails"
+        options={{
+          headerShown: false,
+          title: 'ChatDetails',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        component={ChatDetailsSec}
+        name="ChatDetailsSec"
+        options={{
+          headerShown: false,
+          title: 'ChatDetailsSec',
           ...TransitionPresets.SlideFromRightIOS,
         }}
       />
