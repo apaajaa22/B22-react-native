@@ -6,10 +6,7 @@ import Gap from './Gap';
 const ItemChatOthers = ({pic, msg}) => {
   return (
     <View style={styles.wrapperContent}>
-      <Image
-        source={pic !== null ? pic : ILUserDefault}
-        style={styles.picture}
-      />
+      <Image source={pic} style={styles.picture} />
       <Gap width={12} />
       <View style={styles.containerText}>
         <Text style={styles.text}>{msg}</Text>

@@ -10,10 +10,7 @@ const ItemChatMe = ({pic, msg, onPress}) => {
         <Text style={styles.text}>{msg}</Text>
       </TouchableOpacity>
       <Gap width={12} />
-      <Image
-        source={pic !== null ? pic : ILUserDefault}
-        style={styles.picture}
-      />
+      <Image source={pic} style={styles.picture} />
     </View>
   );
 };

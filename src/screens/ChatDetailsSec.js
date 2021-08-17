@@ -81,7 +81,7 @@ const ChatDetailsSec = ({navigation, route}) => {
             <ItemChat
               onPress={() => onDelete(res)}
               isMe={isMe}
-              pic={{uri: isMe ? chat.sender.picture : chat.recipient.picture}}
+              pic={picture !== null ? {uri: picture} : ILUserDefault}
               msg={res.message}
             />
           );
