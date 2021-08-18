@@ -31,7 +31,7 @@ const ChatDetailsSec = ({navigation, route}) => {
   useEffect(() => {
     getData('token').then(res => {
       dispatch(getChat(res, phone_number));
-      socket.on('recipient', data => {
+      socket.on(profile[0]?.phone_number, data => {
         dispatch(getChat(res, phone_number));
       });
     });

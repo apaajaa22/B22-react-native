@@ -16,6 +16,9 @@ import Gap from '../components/Gap';
 import Header from '../components/Header';
 import {getAllUser, getUserChat} from '../redux/action/chat';
 import {getData} from '../utils/storage';
+import {io} from 'socket.io-client';
+
+const socket = io('http://localhost:8080');
 
 const Chat = ({navigation}) => {
   const dispatch = useDispatch();
@@ -28,6 +31,9 @@ const Chat = ({navigation}) => {
     getData('token').then(res => {
       dispatch(getUserChat(res));
       dispatch(getAllUser(res, search));
+      socket.on(profile[0]?.phone_number, data => {
+        dispatch(getUserChat(res));
+      });
     });
     console.log(user);
   }, [navigation]);
