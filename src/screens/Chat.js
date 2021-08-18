@@ -14,7 +14,7 @@ import {ILUserDefault} from '../assets';
 import CardChat from '../components/CardChat';
 import Gap from '../components/Gap';
 import Header from '../components/Header';
-import {getAllUser, getUserChat} from '../redux/action/chat';
+import {getAllUser, getChat, getUserChat} from '../redux/action/chat';
 import {getData} from '../utils/storage';
 import {io} from 'socket.io-client';
 
@@ -32,6 +32,7 @@ const Chat = ({navigation}) => {
       dispatch(getUserChat(res));
       dispatch(getAllUser(res, search));
       socket.on(profile[0]?.phone_number, data => {
+        dispatch(getChat(res, data.sender));
         dispatch(getUserChat(res));
       });
     });
