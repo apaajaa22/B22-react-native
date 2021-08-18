@@ -48,7 +48,11 @@ export const sendChat = (token, datauser) => {
 
 export const deleteChat = (token, id, recipient) => {
   return async dispatch => {
-    const {data} = await http(token).delete(`${API_URL}/private/chats/${id}`);
+    const form = new URLSearchParams();
+    form.append('recipient', recipient);
+    const {data} = await http(token).delete(`${API_URL}/private/chats/${id}`, {
+      data: form,
+    });
     dispatch(getChat(token, recipient));
     dispatch(getUserChat(token));
   };

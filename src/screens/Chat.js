@@ -17,6 +17,7 @@ import Header from '../components/Header';
 import {getAllUser, getChat, getUserChat} from '../redux/action/chat';
 import {getData} from '../utils/storage';
 import {io} from 'socket.io-client';
+import PushNotification from 'react-native-push-notification';
 
 const socket = io('http://localhost:8080');
 
@@ -34,6 +35,11 @@ const Chat = ({navigation}) => {
       socket.on(profile[0]?.phone_number, data => {
         dispatch(getChat(res, data.sender));
         dispatch(getUserChat(res));
+        PushNotification.localNotification({
+          channelId: 'general',
+          title: `Pesan baru masuk dari ${data.sender}`,
+          message: `${data.message}`,
+        });
       });
     });
     console.log(user);

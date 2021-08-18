@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Alert,
   StyleSheet,
@@ -37,7 +37,7 @@ const ChatDetails = ({navigation, route}) => {
         dispatch(
           getChat(
             res,
-            profile[0]?.phone_number === sender ? recipient : data.sender,
+            profile[0]?.phone_number === sender ? recipient : sender,
           ),
         );
       });
@@ -79,6 +79,9 @@ const ChatDetails = ({navigation, route}) => {
       ],
     );
   };
+
+  const scrollViewRef = useRef();
+
   return (
     <View style={styles.container}>
       <HeaderChat
@@ -87,7 +90,12 @@ const ChatDetails = ({navigation, route}) => {
         email={profile[0]?.phone_number === sender ? recipient : sender}
       />
       <Gap height={10} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        onContentSizeChange={() =>
+          scrollViewRef.current.scrollToEnd({animated: true})
+        }
+        ref={scrollViewRef}
+        showsVerticalScrollIndicator={false}>
         {chat.message?.map(res => {
           const isMe = profile[0]?.phone_number === res.sender;
           return (

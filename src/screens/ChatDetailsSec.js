@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Alert,
   StyleSheet,
@@ -23,6 +23,7 @@ import {ILUserDefault} from '../assets';
 const socket = io('http://localhost:8080');
 
 const ChatDetailsSec = ({navigation, route}) => {
+  const scrollViewRef = useRef();
   const {recipient, sender, name, picture, phone_number} = route.params;
   const {profile} = useSelector(state => state.photoReducer);
   const dispatch = useDispatch();
@@ -74,7 +75,12 @@ const ChatDetailsSec = ({navigation, route}) => {
         email={phone_number}
       />
       <Gap height={10} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        onContentSizeChange={() =>
+          scrollViewRef.current.scrollToEnd({animated: true})
+        }
+        ref={scrollViewRef}
+        showsVerticalScrollIndicator={false}>
         {chat.message?.map(res => {
           const isMe = profile[0]?.phone_number === res.sender;
           return (
