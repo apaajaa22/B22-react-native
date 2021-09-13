@@ -19,7 +19,7 @@ import {getData} from '../utils/storage';
 import {io} from 'socket.io-client';
 import PushNotification from 'react-native-push-notification';
 
-const socket = io('http://localhost:8080');
+const socket = io('https://fm22rezacoffeeshop.herokuapp.com');
 
 const Chat = ({navigation}) => {
   const dispatch = useDispatch();
