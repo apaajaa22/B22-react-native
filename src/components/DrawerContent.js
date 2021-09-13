@@ -104,12 +104,7 @@ const DrawerContent = ({navigation}) => {
         activeOpacity={0.7}
         style={styles.wrapperDrawerSignout}>
         <Text style={styles.drawerTextSignout}>Sign-Out</Text>
-        <IconMaterial
-          name="arrow-right-alt"
-          size={35}
-          color="#6A4029"
-          style={styles.drawerIconSignout}
-        />
+        <IconMaterial name="arrow-right-alt" size={35} color="#6A4029" />
       </TouchableOpacity>
     </View>
   );
@@ -118,7 +113,7 @@ const DrawerContent = ({navigation}) => {
 export default DrawerContent;
 
 const styles = StyleSheet.create({
-  container: {borderTopRightRadius: 30},
+  container: {borderTopRightRadius: 30, flex: 1},
   wrapperProfile: {
     backgroundColor: '#6A4029',
     borderTopRightRadius: 30,
@@ -161,12 +156,12 @@ const styles = StyleSheet.create({
     color: '#6A4029',
   },
   drawerIcon: {paddingBottom: 10, marginRight: 10},
-  wrapperContent: {marginTop: 30},
+  wrapperContent: {marginTop: 30, flex: 1},
   wrapperDrawerSignout: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 60,
     marginLeft: 25,
+    marginBottom: 20,
   },
   drawerTextSignout: {
     fontSize: 17,
